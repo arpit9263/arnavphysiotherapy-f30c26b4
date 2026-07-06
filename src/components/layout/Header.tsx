@@ -157,7 +157,9 @@ export function Header() {
           )}
         </AnimatePresence>
       </div>
+      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </header>
+
   );
 }
 
