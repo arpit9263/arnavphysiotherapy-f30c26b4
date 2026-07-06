@@ -45,21 +45,24 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 gradient-hero" />
+      {/* Background image — front and centre, only a soft scrim on top */}
+      <div className="absolute inset-0 bg-[oklch(0.18_0.04_220)]" />
       <AnimatePresence mode="wait">
         <motion.div
           key={i}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 0.35, scale: 1 }}
+          initial={{ opacity: 0, scale: 1.06 }}
+          animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="absolute inset-0"
         >
           <img src={s.image} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/60 to-white/95" />
+          {/* Subtle darkening only where the copy sits */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/40 to-black/70" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/20" />
         </motion.div>
       </AnimatePresence>
+
 
       {/* floating decorations */}
       <div className="absolute -left-24 top-24 h-72 w-72 rounded-full bg-primary-glow/25 blur-3xl animate-float" />
@@ -102,7 +105,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="mt-6 text-[40px] sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.05] text-foreground"
+            className="mt-6 text-[40px] sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.05] text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.35)]"
           >
             Expert Physiotherapy
             <br className="hidden sm:block" /> for{" "}
@@ -126,21 +129,33 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="mt-6 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto"
+            className="mt-6 text-base md:text-lg text-white/85 max-w-2xl mx-auto"
           >
             Personalised, evidence-based physiotherapy and rehabilitation in Jhansi — helping you recover
             faster, move freely and get back to what you love.
           </motion.p>
 
-          {/* Search bar */}
+          {/* Smart Hero Search — routes to matching service or condition */}
           <motion.form
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={(e) => {
+              e.preventDefault();
+              const q = query.trim().toLowerCase();
+              if (service !== "all") {
+                window.location.href = `/services/${service}`;
+                return;
+              }
+              if (!q) return;
+              const svc = services.find((x) => x.name.toLowerCase().includes(q) || x.slug.includes(q));
+              if (svc) { window.location.href = `/services/${svc.slug}`; return; }
+              // Fallback: send them to services listing with query
+              window.location.href = `/services?q=${encodeURIComponent(q)}`;
+            }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
             className="mt-8 mx-auto max-w-2xl"
           >
-            <div className="flex items-center gap-1 rounded-full bg-white/90 backdrop-blur border border-border p-1.5 shadow-glow">
+            <div className="flex items-center gap-1 rounded-full bg-white/95 backdrop-blur border border-white/30 p-1.5 shadow-glow">
               <div className="relative">
                 <select
                   value={service}
@@ -157,11 +172,23 @@ export function Hero() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search treatments, conditions…"
-                className="flex-1 bg-transparent px-3 py-3 text-sm outline-none placeholder:text-muted-foreground"
+                className="flex-1 bg-transparent px-3 py-3 text-sm outline-none placeholder:text-muted-foreground text-foreground"
               />
               <button aria-label="Search" className="grid h-11 w-11 shrink-0 place-items-center rounded-full gradient-teal text-white shadow-soft hover:scale-105 transition">
                 <Search className="h-4 w-4" />
               </button>
+            </div>
+            {/* Popular chips */}
+            <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-xs">
+              <span className="text-white/70">Popular:</span>
+              {["Back Pain", "Sports Injury", "Frozen Shoulder", "Dry Needling"].map((p) => (
+                <button
+                  key={p}
+                  type="button"
+                  onClick={() => { setQuery(p); }}
+                  className="rounded-full bg-white/15 backdrop-blur border border-white/25 px-3 py-1 text-white/90 hover:bg-white/25 transition"
+                >{p}</button>
+              ))}
             </div>
           </motion.form>
 
@@ -174,7 +201,7 @@ export function Hero() {
             <Link to="/book" className="inline-flex items-center gap-2 rounded-full gradient-teal px-7 py-3.5 text-sm font-semibold text-white shadow-glow hover:-translate-y-0.5 transition">
               Book Appointment <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link to="/services" className="inline-flex items-center gap-2 rounded-full bg-white/80 backdrop-blur border border-border px-7 py-3.5 text-sm font-semibold text-foreground hover:border-primary/40 hover:text-primary transition">
+            <Link to="/services" className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur border border-white/30 px-7 py-3.5 text-sm font-semibold text-white hover:bg-white/25 transition">
               Explore Services
             </Link>
           </motion.div>
@@ -184,14 +211,15 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.6 }}
-            className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs md:text-sm text-muted-foreground"
+            className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs md:text-sm text-white/85"
           >
-            <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-primary" /> Certified Physiotherapists</span>
-            <span className="h-4 w-px bg-border hidden md:inline-block" />
-            <span className="flex items-center gap-2"><Award className="h-4 w-4 text-primary" /> Led by MPT (Sports)</span>
-            <span className="h-4 w-px bg-border hidden md:inline-block" />
+            <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-primary-glow" /> Certified Physiotherapists</span>
+            <span className="h-4 w-px bg-white/30 hidden md:inline-block" />
+            <span className="flex items-center gap-2"><Award className="h-4 w-4 text-primary-glow" /> Led by MPT (Sports)</span>
+            <span className="h-4 w-px bg-white/30 hidden md:inline-block" />
             <span>10+ years serving Jhansi</span>
           </motion.div>
+
 
           {/* dots */}
           <div className="mt-10 flex items-center justify-center gap-2">

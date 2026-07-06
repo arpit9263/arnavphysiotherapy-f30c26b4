@@ -1,13 +1,15 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, Mail, Search, Instagram, Facebook, Youtube, Linkedin, ChevronDown } from "lucide-react";
+import { Menu, X, Phone, Mail, Search, Instagram, Facebook, Youtube, Linkedin } from "lucide-react";
 import { nav, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { SearchDialog } from "@/components/search/SearchDialog";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
@@ -18,6 +20,19 @@ export function Header() {
   }, []);
 
   useEffect(() => setOpen(false), [pathname]);
+
+  // ⌘K / Ctrl-K to open search
+  useEffect(() => {
+    const on = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen((v) => !v);
+      }
+    };
+    window.addEventListener("keydown", on);
+    return () => window.removeEventListener("keydown", on);
+  }, []);
+
 
   return (
     <header className="sticky top-0 z-50">
@@ -84,9 +99,22 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <button aria-label="Search" className="hidden md:grid h-10 w-10 place-items-center rounded-full border border-border text-foreground/70 hover:text-primary hover:border-primary/40 transition">
+            <button
+              aria-label="Open search"
+              onClick={() => setSearchOpen(true)}
+              className="hidden md:inline-flex items-center gap-2 rounded-full border border-border pl-3 pr-1.5 py-1.5 text-xs text-foreground/60 hover:text-primary hover:border-primary/40 transition"
+            >
+              <Search className="h-3.5 w-3.5" /> Search
+              <kbd className="rounded bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground border border-border">⌘K</kbd>
+            </button>
+            <button
+              aria-label="Open search"
+              onClick={() => setSearchOpen(true)}
+              className="md:hidden grid h-10 w-10 place-items-center rounded-full border border-border text-foreground/70"
+            >
               <Search className="h-4 w-4" />
             </button>
+
             <Link
               to="/book"
               className="hidden sm:inline-flex items-center gap-2 rounded-full gradient-teal px-5 py-2.5 text-sm font-semibold text-white shadow-soft hover:shadow-glow transition-all hover:-translate-y-0.5"
@@ -129,9 +157,12 @@ export function Header() {
           )}
         </AnimatePresence>
       </div>
+      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </header>
+
   );
 }
+
 
 function LogoMark() {
   return (
@@ -143,3 +174,4 @@ function LogoMark() {
     </div>
   );
 }
+
