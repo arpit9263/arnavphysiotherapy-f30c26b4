@@ -167,7 +167,20 @@ function LogoMark() {
       <svg viewBox="0 0 24 24" className="h-5 w-5 text-white" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 21s-7-4.5-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.5-7 11-7 11z" />
         <path d="M9 11l2 2 4-4" />
+      </div>
+      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
+    </header>
+  );
+}
+
+function LogoMark() {
+  return (
+    <div className="relative grid h-10 w-10 place-items-center rounded-2xl gradient-teal shadow-soft">
+      <svg viewBox="0 0 24 24" className="h-5 w-5 text-white" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 21s-7-4.5-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.5-7 11-7 11z" />
+        <path d="M9 11l2 2 4-4" />
       </svg>
     </div>
   );
 }
+
