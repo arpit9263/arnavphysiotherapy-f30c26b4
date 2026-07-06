@@ -88,28 +88,24 @@ function ContactPage() {
           </div>
 
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSent(true);
-              toast.success("Thanks! We'll get back to you shortly.");
-              (e.target as HTMLFormElement).reset();
-            }}
+            onSubmit={onSubmit}
             className="rounded-3xl bg-white border border-border p-6 md:p-8 shadow-card space-y-4"
           >
             <h2 className="text-2xl font-bold">Send us a message</h2>
             <div className="grid sm:grid-cols-2 gap-4">
-              <Field label="Full name"><input required className="input" placeholder="Your name" /></Field>
-              <Field label="Phone"><input required className="input" placeholder="+91" /></Field>
+              <Field label="Full name"><input name="name" required maxLength={80} className="input" placeholder="Your name" /></Field>
+              <Field label="Phone"><input name="phone" required maxLength={20} className="input" placeholder="+91" /></Field>
             </div>
-            <Field label="Email"><input type="email" required className="input" placeholder="you@example.com" /></Field>
-            <Field label="Subject"><input className="input" placeholder="Reason for contact" /></Field>
-            <Field label="Message"><textarea required rows={5} className="input resize-none" placeholder="Tell us a bit about what you're experiencing…" /></Field>
-            <button type="submit" className="inline-flex items-center gap-2 rounded-full gradient-teal px-6 py-3 text-sm font-semibold text-white shadow-soft">
-              <Send className="h-4 w-4" /> Send message
+            <Field label="Email"><input name="email" type="email" maxLength={120} className="input" placeholder="you@example.com" /></Field>
+            <Field label="Subject"><input name="subject" maxLength={120} className="input" placeholder="Reason for contact" /></Field>
+            <Field label="Message"><textarea name="message" required rows={5} maxLength={1000} className="input resize-none" placeholder="Tell us a bit about what you're experiencing…" /></Field>
+            <button type="submit" disabled={busy} className="inline-flex items-center gap-2 rounded-full gradient-teal px-6 py-3 text-sm font-semibold text-white shadow-soft disabled:opacity-70">
+              {busy ? <><Loader2 className="h-4 w-4 animate-spin" /> Sending…</> : <><Send className="h-4 w-4" /> Send message</>}
             </button>
-            {sent && <p className="text-xs text-primary">Thanks — we've received your message.</p>}
+            {sent && <p className="text-xs text-primary">Thanks — your message is on its way. WhatsApp opened so you can send us the same instantly.</p>}
             <style>{`.input{width:100%;border:1px solid var(--border);border-radius:14px;padding:12px 14px;font-size:14px;background:white;outline:none;transition:border-color .2s, box-shadow .2s;}.input:focus{border-color:var(--primary);box-shadow:0 0 0 4px color-mix(in oklab, var(--primary) 15%, transparent);}`}</style>
           </form>
+
         </div>
       </section>
     </>
