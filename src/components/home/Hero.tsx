@@ -45,21 +45,24 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 gradient-hero" />
+      {/* Background image — front and centre, only a soft scrim on top */}
+      <div className="absolute inset-0 bg-[oklch(0.18_0.04_220)]" />
       <AnimatePresence mode="wait">
         <motion.div
           key={i}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 0.35, scale: 1 }}
+          initial={{ opacity: 0, scale: 1.06 }}
+          animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="absolute inset-0"
         >
           <img src={s.image} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/60 to-white/95" />
+          {/* Subtle darkening only where the copy sits */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/40 to-black/70" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/20" />
         </motion.div>
       </AnimatePresence>
+
 
       {/* floating decorations */}
       <div className="absolute -left-24 top-24 h-72 w-72 rounded-full bg-primary-glow/25 blur-3xl animate-float" />
