@@ -1,0 +1,35 @@
+export const site = {
+  name: "Arnav Physiotherapy Centre",
+  short: "Arnav Physio",
+  tagline: "Move Better. Live Pain-Free.",
+  doctor: "Dr. Dushyant Singh",
+  credentials: "BPT, MPT (Sports)",
+  role: "Physiotherapist — District Hospital, Jhansi (U.P.)",
+  phone1: "+91 98898 36012",
+  phone2: "+91 70075 98509",
+  phoneRaw1: "+919889836012",
+  phoneRaw2: "+917007598509",
+  whatsapp: "919889836012",
+  email: "care@arnavphysio.in",
+  hours: "Evening 5:00 PM – 8:00 PM",
+  address: "Near Amma Ji Ki Dharamshala, Rani Mahal Road, Jhansi (U.P.)",
+  city: "Jhansi",
+  mapQuery: "Rani Mahal Road, Jhansi, Uttar Pradesh",
+  social: {
+    instagram: "https://instagram.com",
+    facebook: "https://facebook.com",
+    youtube: "https://youtube.com",
+    linkedin: "https://linkedin.com",
+  },
+};
+
+export const nav = [
+  { to: "/", label: "Home" },
+  { to: "/about", label: "About" },
+  { to: "/services", label: "Services" },
+  { to: "/conditions", label: "Conditions" },
+  { to: "/team", label: "Team" },
+  { to: "/gallery", label: "Gallery" },
+  { to: "/blog", label: "Blog" },
+  { to: "/contact", label: "Contact" },
+] as const;
