@@ -99,9 +99,22 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <button aria-label="Search" className="hidden md:grid h-10 w-10 place-items-center rounded-full border border-border text-foreground/70 hover:text-primary hover:border-primary/40 transition">
+            <button
+              aria-label="Open search"
+              onClick={() => setSearchOpen(true)}
+              className="hidden md:inline-flex items-center gap-2 rounded-full border border-border pl-3 pr-1.5 py-1.5 text-xs text-foreground/60 hover:text-primary hover:border-primary/40 transition"
+            >
+              <Search className="h-3.5 w-3.5" /> Search
+              <kbd className="rounded bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground border border-border">⌘K</kbd>
+            </button>
+            <button
+              aria-label="Open search"
+              onClick={() => setSearchOpen(true)}
+              className="md:hidden grid h-10 w-10 place-items-center rounded-full border border-border text-foreground/70"
+            >
               <Search className="h-4 w-4" />
             </button>
+
             <Link
               to="/book"
               className="hidden sm:inline-flex items-center gap-2 rounded-full gradient-teal px-5 py-2.5 text-sm font-semibold text-white shadow-soft hover:shadow-glow transition-all hover:-translate-y-0.5"
