@@ -60,7 +60,7 @@ function ServiceDetail() {
             <div className="rounded-3xl bg-surface p-6 md:p-8 border border-border">
               <h3 className="text-lg font-bold">Key benefits</h3>
               <ul className="mt-4 space-y-3">
-                {service.benefits.map((b) => (
+                {service.benefits.map((b: string) => (
                   <li key={b} className="flex items-start gap-3">
                     <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
                       <Check className="h-3.5 w-3.5" />
