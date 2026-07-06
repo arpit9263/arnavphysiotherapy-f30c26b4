@@ -3,15 +3,19 @@ import { PageHero } from "@/components/layout/PageHero";
 import { site } from "@/lib/site";
 import { services } from "@/lib/data";
 import { useState } from "react";
-import { Calendar, Clock, Send, Phone, MapPin, Check } from "lucide-react";
+import { Calendar, Clock, Send, Phone, MapPin, Check, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { submitLead } from "@/lib/forms";
 
 export const Route = createFileRoute("/book")({
   head: () => ({
     meta: [
       { title: "Book Appointment — Arnav Physiotherapy Jhansi" },
       { name: "description", content: "Book a personalised physiotherapy assessment with Dr. Dushyant Singh at Arnav Physio, Jhansi." },
+      { property: "og:title", content: "Book Appointment — Arnav Physiotherapy" },
+      { property: "og:url", content: "/book" },
     ],
+    links: [{ rel: "canonical", href: "/book" }],
   }),
   component: BookPage,
 });
@@ -20,6 +24,38 @@ const times = ["05:00 PM", "05:30 PM", "06:00 PM", "06:30 PM", "07:00 PM", "07:3
 
 function BookPage() {
   const [done, setDone] = useState(false);
+  const [busy, setBusy] = useState(false);
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget);
+    const payload = {
+      name: String(f.get("name") ?? ""),
+      phone: String(f.get("phone") ?? ""),
+      email: String(f.get("email") ?? ""),
+      age: String(f.get("age") ?? ""),
+      service: String(f.get("service") ?? ""),
+      date: String(f.get("date") ?? ""),
+      time: String(f.get("time") ?? ""),
+      condition: String(f.get("condition") ?? ""),
+    };
+    if (!payload.name || !payload.phone || !payload.service) {
+      toast.error("Please fill name, phone and service.");
+      return;
+    }
+    setBusy(true);
+    try {
+      await submitLead("New Appointment Request — Arnav Physio", payload);
+      setDone(true);
+      toast.success("Appointment request sent — WhatsApp opened to confirm.");
+      (e.target as HTMLFormElement).reset();
+    } catch {
+      toast.error("Couldn't send. Please try again or call us directly.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
   return (
     <>
       <PageHero eyebrow="Book Appointment" title="Book a personalised assessment"
@@ -52,30 +88,27 @@ function BookPage() {
             <div className="lg:col-span-8 rounded-3xl bg-white border border-border shadow-card p-10 text-center">
               <div className="mx-auto grid h-16 w-16 place-items-center rounded-full gradient-teal text-white"><Check className="h-7 w-7" /></div>
               <h2 className="mt-5 text-2xl font-bold">Request received</h2>
-              <p className="mt-2 text-muted-foreground">Thank you. Our team will confirm your appointment within a few hours.</p>
+              <p className="mt-2 text-muted-foreground">Thank you. We've also opened WhatsApp so you can send the same details to us instantly.</p>
               <button onClick={() => setDone(false)} className="mt-6 rounded-full border border-border px-6 py-3 text-sm font-semibold">Book another</button>
             </div>
           ) : (
-            <form
-              onSubmit={(e) => { e.preventDefault(); setDone(true); toast.success("Appointment request sent!"); }}
-              className="lg:col-span-8 rounded-3xl bg-white border border-border shadow-card p-6 md:p-10 space-y-5"
-            >
+            <form onSubmit={onSubmit} className="lg:col-span-8 rounded-3xl bg-white border border-border shadow-card p-6 md:p-10 space-y-5">
               <div className="grid sm:grid-cols-2 gap-5">
-                <Field label="Full name"><input required className="input" placeholder="Your name" /></Field>
-                <Field label="Phone / WhatsApp"><input required className="input" placeholder="+91" /></Field>
-                <Field label="Email"><input type="email" className="input" placeholder="you@example.com" /></Field>
-                <Field label="Age"><input type="number" min={1} className="input" placeholder="e.g. 34" /></Field>
+                <Field label="Full name"><input name="name" required maxLength={80} className="input" placeholder="Your name" /></Field>
+                <Field label="Phone / WhatsApp"><input name="phone" required maxLength={20} className="input" placeholder="+91" /></Field>
+                <Field label="Email"><input name="email" type="email" maxLength={120} className="input" placeholder="you@example.com" /></Field>
+                <Field label="Age"><input name="age" type="number" min={1} max={120} className="input" placeholder="e.g. 34" /></Field>
               </div>
               <Field label="Service">
-                <select required className="input">
+                <select name="service" required className="input">
                   <option value="">Select a service</option>
-                  {services.map((s) => <option key={s.slug} value={s.slug}>{s.name}</option>)}
+                  {services.map((s) => <option key={s.slug} value={s.name}>{s.name}</option>)}
                 </select>
               </Field>
               <div className="grid sm:grid-cols-2 gap-5">
                 <Field label="Preferred date">
                   <div className="relative">
-                    <input type="date" required className="input pl-11" />
+                    <input name="date" type="date" required className="input pl-11" />
                     <Calendar className="h-4 w-4 text-muted-foreground absolute left-4 top-1/2 -translate-y-1/2" />
                   </div>
                 </Field>
@@ -91,11 +124,12 @@ function BookPage() {
                 </Field>
               </div>
               <Field label="Briefly describe your condition">
-                <textarea rows={4} className="input resize-none" placeholder="Where does it hurt? When did it start?" />
+                <textarea name="condition" rows={4} maxLength={1000} className="input resize-none" placeholder="Where does it hurt? When did it start?" />
               </Field>
-              <button type="submit" className="inline-flex items-center gap-2 rounded-full gradient-teal px-7 py-3.5 text-sm font-semibold text-white shadow-glow">
-                <Send className="h-4 w-4" /> Request Appointment
+              <button type="submit" disabled={busy} className="inline-flex items-center gap-2 rounded-full gradient-teal px-7 py-3.5 text-sm font-semibold text-white shadow-glow disabled:opacity-70">
+                {busy ? <><Loader2 className="h-4 w-4 animate-spin" /> Sending…</> : <><Send className="h-4 w-4" /> Request Appointment</>}
               </button>
+              <p className="text-xs text-muted-foreground">On submit we'll email the clinic and also open WhatsApp with your details prefilled so you can confirm instantly.</p>
               <style>{`.input{width:100%;border:1px solid var(--border);border-radius:14px;padding:12px 14px;font-size:14px;background:white;outline:none;transition:border-color .2s, box-shadow .2s;}.input:focus{border-color:var(--primary);box-shadow:0 0 0 4px color-mix(in oklab, var(--primary) 15%, transparent);}`}</style>
             </form>
           )}
