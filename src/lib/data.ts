@@ -309,15 +309,28 @@ export const blogs = [
   },
 ];
 
-export const galleryImages = [
-  "https://images.unsplash.com/photo-1580281658626-ee379f3cce93?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1591343395082-e120087004b4?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1200&q=80",
+export type GalleryItem = {
+  src: string;
+  category: "Clinic" | "Treatments" | "Equipment" | "Sessions" | "Team";
+  title: string;
+  type?: "image" | "video";
+};
+
+export const galleryItems: GalleryItem[] = [
+  { src: "https://images.unsplash.com/photo-1580281658626-ee379f3cce93?auto=format&fit=crop&w=1400&q=80", category: "Clinic", title: "Consultation Room" },
+  { src: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1400&q=80", category: "Sessions", title: "Exercise Therapy" },
+  { src: "https://images.unsplash.com/photo-1591343395082-e120087004b4?auto=format&fit=crop&w=1400&q=80", category: "Treatments", title: "Cupping Therapy" },
+  { src: "https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=1400&q=80", category: "Equipment", title: "Electrotherapy Unit" },
+  { src: "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1400&q=80", category: "Sessions", title: "Knee Rehabilitation" },
+  { src: "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?auto=format&fit=crop&w=1400&q=80", category: "Sessions", title: "Sports Recovery" },
+  { src: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=1400&q=80", category: "Equipment", title: "Rehab Gym" },
+  { src: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=1400&q=80", category: "Treatments", title: "Dry Needling" },
+  { src: "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=1400&q=80", category: "Clinic", title: "Waiting Area" },
+  { src: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1400&q=80", category: "Sessions", title: "Women's Health" },
+  { src: "https://images.unsplash.com/photo-1580281657527-47f249e8f4df?auto=format&fit=crop&w=1400&q=80", category: "Treatments", title: "Manual Therapy" },
+  { src: "https://images.unsplash.com/photo-1631815588090-d1bcbe9a8537?auto=format&fit=crop&w=1400&q=80", category: "Sessions", title: "Neuro Rehab" },
 ];
+
+/** Back-compat: flat URL list still used by a few components */
+export const galleryImages = galleryItems.map((g) => g.src);
+
