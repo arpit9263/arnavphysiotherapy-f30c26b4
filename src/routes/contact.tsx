@@ -19,7 +19,37 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [busy, setBusy] = useState(false);
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget);
+    const payload = {
+      name: String(f.get("name") ?? ""),
+      phone: String(f.get("phone") ?? ""),
+      email: String(f.get("email") ?? ""),
+      subject: String(f.get("subject") ?? "General enquiry"),
+      message: String(f.get("message") ?? ""),
+    };
+    if (!payload.name || !payload.phone || !payload.message) {
+      toast.error("Please fill name, phone and message.");
+      return;
+    }
+    setBusy(true);
+    try {
+      await submitLead("New Contact Message — Arnav Physio", payload);
+      setSent(true);
+      toast.success("Thanks! We'll get back to you shortly.");
+      (e.target as HTMLFormElement).reset();
+    } catch {
+      toast.error("Couldn't send. Please try again or call us.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
   return (
+
     <>
       <PageHero eyebrow="Contact" title="Let's talk about your recovery"
         subtitle="Call, WhatsApp, or send us a message — we usually reply the same day."
