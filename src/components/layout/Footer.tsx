@@ -36,19 +36,23 @@ export function Footer() {
               type="email"
               required
               placeholder="you@example.com"
-              className="bg-transparent flex-1 outline-none text-sm placeholder:text-white/40 text-white py-2"
+              className="bg-transparent flex-1 outline-none text-sm placeholder:text-white/40 text-white py-2 min-w-0"
             />
-            <button className="inline-flex items-center gap-2 rounded-full gradient-teal px-5 py-2.5 text-sm font-semibold text-white shadow-soft hover:shadow-glow transition">
+            <button className="inline-flex shrink-0 items-center gap-2 rounded-full gradient-teal px-5 py-2.5 text-sm font-semibold text-white shadow-soft hover:shadow-glow transition">
               Subscribe <Send className="h-3.5 w-3.5" />
             </button>
           </form>
         </div>
       </div>
 
-      <div className="relative container-page py-16 grid gap-12 lg:grid-cols-12">
-        <div className="lg:col-span-4 space-y-5">
+      {/* Main grid — spans now sum correctly at every breakpoint:
+          mobile: 1 col (stacked)
+          sm/md:  6 cols  -> brand(6) + 3x link cols(2 each=6) + contact(6) = wraps in two neat rows
+          lg:     12 cols -> brand(3) + 3x link cols(2 each=6) + contact(3) = 12 */}
+      <div className="relative container-page py-16 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-6 lg:grid-cols-12">
+        <div className="sm:col-span-6 lg:col-span-3 space-y-5">
           <Link to="/" className="flex items-center gap-2.5">
-            <div className="grid h-11 w-11 place-items-center rounded-2xl gradient-teal shadow-glow">
+            <div className="grid h-11 w-11 place-items-center rounded-2xl gradient-teal shadow-glow shrink-0">
               <svg viewBox="0 0 24 24" className="h-5 w-5 text-white" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 21s-7-4.5-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.5-7 11-7 11z" />
                 <path d="M9 11l2 2 4-4" />
@@ -112,7 +116,7 @@ export function Footer() {
           items={conditions.slice(0, 6).map((c) => ({ label: c.name, to: `/conditions/${c.slug}` }))}
         />
 
-        <div className="lg:col-span-4 space-y-4">
+        <div className="sm:col-span-6 lg:col-span-3 space-y-4">
           <h4 className="text-white font-semibold text-base">Get in touch</h4>
           <ul className="space-y-3 text-sm text-white/75">
             <li className="flex gap-3">
@@ -134,7 +138,7 @@ export function Footer() {
               <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white/10 border border-white/10">
                 <Mail className="h-4 w-4 text-primary-glow" />
               </div>
-              <a href={`mailto:${site.email}`} className="pt-1.5 hover:text-white">{site.email}</a>
+              <a href={`mailto:${site.email}`} className="pt-1.5 hover:text-white break-all">{site.email}</a>
             </li>
             <li className="flex gap-3">
               <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white/10 border border-white/10">
@@ -170,7 +174,7 @@ export function Footer() {
 
 function FooterCol({ title, items }: { title: string; items: { label: string; to: string }[] }) {
   return (
-    <div className="lg:col-span-2 space-y-4">
+    <div className="sm:col-span-3 lg:col-span-2 space-y-4">
       <h4 className="text-white font-semibold text-base">{title}</h4>
       <ul className="space-y-2 text-sm">
         {items.map((it) => (
