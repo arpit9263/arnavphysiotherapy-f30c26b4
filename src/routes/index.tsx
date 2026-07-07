@@ -10,6 +10,8 @@ import { DoctorProfile } from "@/components/home/DoctorProfile";
 import { ProcessTimeline } from "@/components/home/ProcessTimeline";
 import { Testimonials } from "@/components/home/Testimonials";
 import { GalleryPreview } from "@/components/home/GalleryPreview";
+import { StatsCounter } from "@/components/home/StatsCounter";
+import { VideoShowcase } from "@/components/home/VideoShowcase";
 import { FAQ } from "@/components/home/FAQ";
 import { BlogPreview } from "@/components/home/BlogPreview";
 import { BookCTA } from "@/components/home/BookCTA";
@@ -54,9 +56,11 @@ function Index() {
       <ConditionsSlider />
       <TreatmentsGrid />
       <WhyChoose />
+      <StatsCounter />
       <AboutBlock />
       <DoctorProfile />
       <ProcessTimeline />
+      <VideoShowcase />
       <Testimonials />
       <GalleryPreview />
       <FAQ />
