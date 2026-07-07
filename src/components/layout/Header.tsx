@@ -1,15 +1,86 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, Mail, Search, Instagram, Facebook, Youtube, Linkedin } from "lucide-react";
+import {
+  Menu, X, Phone, Mail, Search, Instagram, Facebook, Youtube, Linkedin,
+  ChevronDown, Stethoscope, HeartPulse, Activity, Zap, Dumbbell, Brain,
+  Bone, Sparkles, Users, Image as ImageIcon, BookOpen, MessageSquare,
+  Info, HelpCircle, Calendar, Star,
+} from "lucide-react";
 import { nav, site } from "@/lib/site";
+import { services, conditions } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { SearchDialog } from "@/components/search/SearchDialog";
+
+const serviceIcons: Record<string, any> = {
+  "manual-therapy": HeartPulse,
+  "exercise-therapy": Dumbbell,
+  "electrotherapy": Zap,
+  "dry-needling": Activity,
+  "shockwave-therapy": Zap,
+  "sports-rehabilitation": Dumbbell,
+  "cupping-therapy": Sparkles,
+  "neurological-physiotherapy": Brain,
+};
+const conditionIcons: Record<string, any> = {
+  "back-pain": Bone,
+  "neck-pain": Bone,
+  "shoulder-pain": Activity,
+  "knee-pain": Bone,
+  "sciatica": Activity,
+  "slip-disc": Bone,
+  "frozen-shoulder": Activity,
+  "sports-injury": Dumbbell,
+  "arthritis": Bone,
+  "stroke-rehab": Brain,
+  "neurological-rehab": Brain,
+  "post-surgery-rehab": HeartPulse,
+};
+
+type MegaItem = { to: string; label: string; desc: string; Icon: any };
+
+function buildMega(kind: string): MegaItem[] | null {
+  if (kind === "/services") {
+    return services.slice(0, 8).map((s) => ({
+      to: `/services/${s.slug}`,
+      label: s.name,
+      desc: s.short,
+      Icon: serviceIcons[s.slug] || Stethoscope,
+    }));
+  }
+  if (kind === "/conditions") {
+    return conditions.slice(0, 8).map((c) => ({
+      to: `/conditions/${c.slug}`,
+      label: c.name,
+      desc: c.summary,
+      Icon: conditionIcons[c.slug] || HeartPulse,
+    }));
+  }
+  if (kind === "/about") {
+    return [
+      { to: "/about", label: "Our Story", desc: "Who we are and what drives us.", Icon: Info },
+      { to: "/team", label: "Our Team", desc: "Meet Dr. Dushyant Singh & specialists.", Icon: Users },
+      { to: "/testimonials", label: "Testimonials", desc: "Real recovery stories from patients.", Icon: Star },
+      { to: "/faq", label: "FAQs", desc: "Answers to common questions.", Icon: HelpCircle },
+    ];
+  }
+  if (kind === "/gallery") {
+    return [
+      { to: "/gallery", label: "Clinic Gallery", desc: "Facilities, treatments and results.", Icon: ImageIcon },
+      { to: "/blog", label: "Health Blog", desc: "Tips, guides & wellness reads.", Icon: BookOpen },
+      { to: "/contact", label: "Contact", desc: "Reach out — we'll get back fast.", Icon: MessageSquare },
+      { to: "/book", label: "Book Now", desc: "Reserve a personalised session.", Icon: Calendar },
+    ];
+  }
+  return null;
+}
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [openMega, setOpenMega] = useState<string | null>(null);
+  const [mobileSub, setMobileSub] = useState<string | null>(null);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
@@ -21,18 +92,17 @@ export function Header() {
 
   useEffect(() => setOpen(false), [pathname]);
 
-  // ⌘K / Ctrl-K to open search
   useEffect(() => {
     const on = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setSearchOpen((v) => !v);
       }
+      if (e.key === "Escape") setOpenMega(null);
     };
     window.addEventListener("keydown", on);
     return () => window.removeEventListener("keydown", on);
   }, []);
-
 
   return (
     <header className="sticky top-0 z-50">
@@ -64,7 +134,14 @@ export function Header() {
       </div>
 
       {/* Main nav */}
-      <div className={cn("transition-all duration-300", scrolled ? "glass-nav shadow-soft" : "bg-white/80 backdrop-blur-md")}>
+      <div
+        className={cn(
+          "transition-all duration-300 border-b",
+          scrolled
+            ? "bg-white/95 backdrop-blur-xl shadow-[0_8px_30px_-12px_rgba(15,23,42,0.15)] border-border/60"
+            : "bg-white/90 backdrop-blur-md border-transparent",
+        )}
+      >
         <div className="container-page flex h-[70px] items-center justify-between gap-4">
           <Link to="/" className="flex items-center gap-2.5 shrink-0">
             <LogoMark />
@@ -74,26 +151,78 @@ export function Header() {
             </div>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-1" onMouseLeave={() => setOpenMega(null)}>
             {nav.map((n) => {
               const active = pathname === n.to || (n.to !== "/" && pathname.startsWith(n.to));
+              const mega = buildMega(n.to);
               return (
-                <Link
+                <div
                   key={n.to}
-                  to={n.to}
-                  className={cn(
-                    "relative px-3 py-2 text-[14px] font-medium transition-colors",
-                    active ? "text-primary" : "text-foreground/80 hover:text-primary"
-                  )}
+                  className="relative"
+                  onMouseEnter={() => setOpenMega(mega ? n.to : null)}
                 >
-                  {n.label}
-                  {active && (
-                    <motion.span
-                      layoutId="nav-underline"
-                      className="absolute left-3 right-3 -bottom-0.5 h-0.5 rounded-full bg-primary"
-                    />
-                  )}
-                </Link>
+                  <Link
+                    to={n.to}
+                    className={cn(
+                      "relative flex items-center gap-1 px-3 py-2 text-[14px] font-medium transition-colors",
+                      active ? "text-primary" : "text-foreground/80 hover:text-primary",
+                    )}
+                  >
+                    {n.label}
+                    {mega && <ChevronDown className="h-3.5 w-3.5 opacity-70" />}
+                    {active && (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className="absolute left-3 right-3 -bottom-0.5 h-0.5 rounded-full bg-primary"
+                      />
+                    )}
+                  </Link>
+
+                  <AnimatePresence>
+                    {mega && openMega === n.to && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                        transition={{ duration: 0.18 }}
+                        className="absolute left-1/2 -translate-x-1/2 top-full pt-3 z-40"
+                      >
+                        <div className="w-[640px] rounded-3xl border border-border bg-white/98 backdrop-blur-xl shadow-[0_20px_60px_-20px_rgba(15,23,42,0.25)] p-4">
+                          <div className="grid grid-cols-2 gap-1.5">
+                            {mega.map((m) => (
+                              <Link
+                                key={m.to}
+                                to={m.to}
+                                onClick={() => setOpenMega(null)}
+                                className="group flex gap-3 rounded-2xl p-3 hover:bg-primary/5 transition"
+                              >
+                                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition">
+                                  <m.Icon className="h-4 w-4" />
+                                </div>
+                                <div className="min-w-0">
+                                  <div className="text-[13px] font-semibold text-foreground group-hover:text-primary transition truncate">
+                                    {m.label}
+                                  </div>
+                                  <div className="text-[11.5px] text-muted-foreground leading-snug line-clamp-2 mt-0.5">
+                                    {m.desc}
+                                  </div>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                          <div className="mt-3 pt-3 border-t border-border flex items-center justify-between">
+                            <Link to={n.to} onClick={() => setOpenMega(null)} className="text-xs font-semibold text-primary hover:underline">
+                              View all {n.label.toLowerCase()} →
+                            </Link>
+                            <Link to="/book" onClick={() => setOpenMega(null)} className="rounded-full gradient-teal px-4 py-1.5 text-xs font-semibold text-white">
+                              Book Now
+                            </Link>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               );
             })}
           </nav>
@@ -139,17 +268,54 @@ export function Header() {
               exit={{ height: 0, opacity: 0 }}
               className="lg:hidden overflow-hidden border-t border-border bg-white"
             >
-              <div className="container-page py-4 flex flex-col gap-1">
-                {nav.map((n) => (
-                  <Link
-                    key={n.to}
-                    to={n.to}
-                    className="px-3 py-3 rounded-xl text-[15px] font-medium text-foreground/90 hover:bg-muted"
-                  >
-                    {n.label}
-                  </Link>
-                ))}
-                <Link to="/book" className="mt-2 text-center rounded-full gradient-teal px-5 py-3 text-sm font-semibold text-white">
+              <div className="container-page py-4 flex flex-col gap-1 max-h-[70vh] overflow-y-auto">
+                {nav.map((n) => {
+                  const mega = buildMega(n.to);
+                  const active = mobileSub === n.to;
+                  return (
+                    <div key={n.to} className="border-b border-border/60 last:border-0">
+                      <div className="flex items-center">
+                        <Link
+                          to={n.to}
+                          className="flex-1 px-3 py-3 rounded-xl text-[15px] font-medium text-foreground/90"
+                        >
+                          {n.label}
+                        </Link>
+                        {mega && (
+                          <button
+                            aria-label="Toggle"
+                            onClick={() => setMobileSub(active ? null : n.to)}
+                            className="p-3 text-foreground/60"
+                          >
+                            <ChevronDown className={cn("h-4 w-4 transition", active && "rotate-180")} />
+                          </button>
+                        )}
+                      </div>
+                      <AnimatePresence>
+                        {mega && active && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="overflow-hidden pl-3 pb-3"
+                          >
+                            <div className="grid gap-1">
+                              {mega.map((m) => (
+                                <Link key={m.to} to={m.to} className="flex items-center gap-3 rounded-lg p-2 hover:bg-muted">
+                                  <div className="grid h-8 w-8 place-items-center rounded-lg bg-primary/10 text-primary">
+                                    <m.Icon className="h-3.5 w-3.5" />
+                                  </div>
+                                  <span className="text-sm text-foreground/80">{m.label}</span>
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                })}
+                <Link to="/book" className="mt-3 text-center rounded-full gradient-teal px-5 py-3 text-sm font-semibold text-white">
                   Book Appointment
                 </Link>
               </div>
@@ -159,10 +325,8 @@ export function Header() {
       </div>
       <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </header>
-
   );
 }
-
 
 function LogoMark() {
   return (
@@ -174,4 +338,3 @@ function LogoMark() {
     </div>
   );
 }
-
