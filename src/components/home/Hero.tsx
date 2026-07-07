@@ -57,9 +57,9 @@ export function Hero() {
           className="absolute inset-0"
         >
           <img src={s.image} alt="" className="w-full h-full object-cover" />
-          {/* Subtle darkening only where the copy sits */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/40 to-black/70" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/20" />
+          {/* Reduced overlay — image stays clearly visible */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/25 to-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/25 via-transparent to-black/10" />
         </motion.div>
       </AnimatePresence>
 
