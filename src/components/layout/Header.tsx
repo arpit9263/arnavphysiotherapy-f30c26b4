@@ -38,6 +38,59 @@ const conditionIcons: Record<string, any> = {
 };
 
 type MegaItem = { to: string; label: string; desc: string; Icon: any };
+type MegaTheme = {
+  gradient: string;      // utility class
+  chip: string;          // small text/badge color
+  soft: string;          // soft bg tint
+  ring: string;          // hover ring
+  layout: "grid" | "list" | "stack" | "mosaic";
+  title: string;
+  blurb: string;
+  cta: string;
+};
+
+const megaThemes: Record<string, MegaTheme> = {
+  "/services": {
+    gradient: "gradient-teal",
+    chip: "text-teal-600 bg-teal-50",
+    soft: "from-teal-50/70 to-white",
+    ring: "hover:ring-teal-300/60",
+    layout: "grid",
+    title: "Our Treatments",
+    blurb: "Hands-on, evidence-based physiotherapy tailored to your goal.",
+    cta: "Explore all services",
+  },
+  "/conditions": {
+    gradient: "gradient-rose",
+    chip: "text-rose-600 bg-rose-50",
+    soft: "from-rose-50/70 to-white",
+    ring: "hover:ring-rose-300/60",
+    layout: "list",
+    title: "Conditions We Treat",
+    blurb: "From back pain to stroke recovery — we've got a plan for it.",
+    cta: "See all conditions",
+  },
+  "/about": {
+    gradient: "gradient-violet",
+    chip: "text-violet-600 bg-violet-50",
+    soft: "from-violet-50/70 to-white",
+    ring: "hover:ring-violet-300/60",
+    layout: "stack",
+    title: "About Arnav Physio",
+    blurb: "Meet the team, our philosophy and what patients say about us.",
+    cta: "About the clinic",
+  },
+  "/gallery": {
+    gradient: "gradient-amber",
+    chip: "text-amber-600 bg-amber-50",
+    soft: "from-amber-50/70 to-white",
+    ring: "hover:ring-amber-300/60",
+    layout: "mosaic",
+    title: "Explore & Connect",
+    blurb: "Photos, articles and quick ways to reach out.",
+    cta: "Open gallery",
+  },
+};
 
 function buildMega(kind: string): MegaItem[] | null {
   if (kind === "/services") {
