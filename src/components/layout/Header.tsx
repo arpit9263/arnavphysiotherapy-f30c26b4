@@ -38,6 +38,59 @@ const conditionIcons: Record<string, any> = {
 };
 
 type MegaItem = { to: string; label: string; desc: string; Icon: any };
+type MegaTheme = {
+  gradient: string;      // utility class
+  chip: string;          // small text/badge color
+  soft: string;          // soft bg tint
+  ring: string;          // hover ring
+  layout: "grid" | "list" | "stack" | "mosaic";
+  title: string;
+  blurb: string;
+  cta: string;
+};
+
+const megaThemes: Record<string, MegaTheme> = {
+  "/services": {
+    gradient: "gradient-teal",
+    chip: "text-teal-600 bg-teal-50",
+    soft: "from-teal-50/70 to-white",
+    ring: "hover:ring-teal-300/60",
+    layout: "grid",
+    title: "Our Treatments",
+    blurb: "Hands-on, evidence-based physiotherapy tailored to your goal.",
+    cta: "Explore all services",
+  },
+  "/conditions": {
+    gradient: "gradient-rose",
+    chip: "text-rose-600 bg-rose-50",
+    soft: "from-rose-50/70 to-white",
+    ring: "hover:ring-rose-300/60",
+    layout: "list",
+    title: "Conditions We Treat",
+    blurb: "From back pain to stroke recovery — we've got a plan for it.",
+    cta: "See all conditions",
+  },
+  "/about": {
+    gradient: "gradient-violet",
+    chip: "text-violet-600 bg-violet-50",
+    soft: "from-violet-50/70 to-white",
+    ring: "hover:ring-violet-300/60",
+    layout: "stack",
+    title: "About Arnav Physio",
+    blurb: "Meet the team, our philosophy and what patients say about us.",
+    cta: "About the clinic",
+  },
+  "/gallery": {
+    gradient: "gradient-amber",
+    chip: "text-amber-600 bg-amber-50",
+    soft: "from-amber-50/70 to-white",
+    ring: "hover:ring-amber-300/60",
+    layout: "mosaic",
+    title: "Explore & Connect",
+    blurb: "Photos, articles and quick ways to reach out.",
+    cta: "Open gallery",
+  },
+};
 
 function buildMega(kind: string): MegaItem[] | null {
   if (kind === "/services") {
@@ -180,46 +233,13 @@ export function Header() {
 
                   <AnimatePresence>
                     {mega && openMega === n.to && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                        transition={{ duration: 0.18 }}
-                        className="absolute left-1/2 -translate-x-1/2 top-full pt-3 z-40"
-                      >
-                        <div className="w-[640px] rounded-3xl border border-border bg-white/98 backdrop-blur-xl shadow-[0_20px_60px_-20px_rgba(15,23,42,0.25)] p-4">
-                          <div className="grid grid-cols-2 gap-1.5">
-                            {mega.map((m) => (
-                              <Link
-                                key={m.to}
-                                to={m.to}
-                                onClick={() => setOpenMega(null)}
-                                className="group flex gap-3 rounded-2xl p-3 hover:bg-primary/5 transition"
-                              >
-                                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition">
-                                  <m.Icon className="h-4 w-4" />
-                                </div>
-                                <div className="min-w-0">
-                                  <div className="text-[13px] font-semibold text-foreground group-hover:text-primary transition truncate">
-                                    {m.label}
-                                  </div>
-                                  <div className="text-[11.5px] text-muted-foreground leading-snug line-clamp-2 mt-0.5">
-                                    {m.desc}
-                                  </div>
-                                </div>
-                              </Link>
-                            ))}
-                          </div>
-                          <div className="mt-3 pt-3 border-t border-border flex items-center justify-between">
-                            <Link to={n.to} onClick={() => setOpenMega(null)} className="text-xs font-semibold text-primary hover:underline">
-                              View all {n.label.toLowerCase()} →
-                            </Link>
-                            <Link to="/book" onClick={() => setOpenMega(null)} className="rounded-full gradient-teal px-4 py-1.5 text-xs font-semibold text-white">
-                              Book Now
-                            </Link>
-                          </div>
-                        </div>
-                      </motion.div>
+                      <MegaPopover
+                        theme={megaThemes[n.to]}
+                        items={mega}
+                        navTo={n.to}
+                        navLabel={n.label}
+                        onClose={() => setOpenMega(null)}
+                      />
                     )}
                   </AnimatePresence>
                 </div>
@@ -336,5 +356,157 @@ function LogoMark() {
         <path d="M9 11l2 2 4-4" />
       </svg>
     </div>
+  );
+}
+
+function MegaPopover({
+  theme,
+  items,
+  navTo,
+  navLabel,
+  onClose,
+}: {
+  theme: MegaTheme;
+  items: MegaItem[];
+  navTo: string;
+  navLabel: string;
+  onClose: () => void;
+}) {
+  const wrap = (children: React.ReactNode, widthClass = "w-[680px]") => (
+    <motion.div
+      initial={{ opacity: 0, y: 12, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: 8, scale: 0.98 }}
+      transition={{ duration: 0.2, ease: [0.2, 0.7, 0.2, 1] }}
+      className="absolute left-1/2 -translate-x-1/2 top-full pt-3 z-40"
+    >
+      <div className={cn("rounded-3xl border border-border/70 bg-white shadow-[0_30px_80px_-25px_rgba(15,23,42,0.35)] overflow-hidden", widthClass)}>
+        {/* Colored header strip */}
+        <div className={cn("relative px-5 py-4 text-white", theme.gradient)}>
+          <div className="absolute inset-0 opacity-30 mix-blend-overlay bg-[radial-gradient(circle_at_top_right,white,transparent_60%)]" />
+          <div className="relative flex items-center justify-between">
+            <div>
+              <div className="text-[10px] font-bold uppercase tracking-[0.22em] opacity-80">{navLabel}</div>
+              <div className="text-lg font-bold leading-tight mt-0.5">{theme.title}</div>
+            </div>
+            <Link to="/book" onClick={onClose} className="rounded-full bg-white/20 hover:bg-white/30 backdrop-blur px-3.5 py-1.5 text-[11px] font-semibold border border-white/25">
+              Book Now
+            </Link>
+          </div>
+          <p className="relative mt-1.5 text-[12px] opacity-90 max-w-md">{theme.blurb}</p>
+        </div>
+        {children}
+        <div className={cn("bg-gradient-to-br px-5 py-3 border-t border-border/60 flex items-center justify-between", theme.soft)}>
+          <Link to={navTo} onClick={onClose} className={cn("text-[12px] font-semibold inline-flex items-center gap-1 px-2.5 py-1 rounded-full", theme.chip)}>
+            {theme.cta} →
+          </Link>
+          <span className="text-[11px] text-muted-foreground">Press <kbd className="rounded bg-white border border-border px-1.5 py-0.5 text-[10px] font-semibold">Esc</kbd> to close</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+
+  if (theme.layout === "grid") {
+    return wrap(
+      <div className="p-4 grid grid-cols-2 gap-1.5">
+        {items.map((m) => (
+          <Link
+            key={m.to}
+            to={m.to}
+            onClick={onClose}
+            className={cn("group flex gap-3 rounded-2xl p-3 ring-1 ring-transparent transition-all hover:bg-muted/50", theme.ring)}
+          >
+            <div className={cn("grid h-10 w-10 shrink-0 place-items-center rounded-xl text-white shadow-soft group-hover:scale-110 transition", theme.gradient)}>
+              <m.Icon className="h-4 w-4" />
+            </div>
+            <div className="min-w-0">
+              <div className="text-[13px] font-semibold text-foreground truncate">{m.label}</div>
+              <div className="text-[11.5px] text-muted-foreground leading-snug line-clamp-2 mt-0.5">{m.desc}</div>
+            </div>
+          </Link>
+        ))}
+      </div>,
+      "w-[680px]",
+    );
+  }
+
+  if (theme.layout === "list") {
+    return wrap(
+      <div className="p-3">
+        {items.map((m, i) => (
+          <Link
+            key={m.to}
+            to={m.to}
+            onClick={onClose}
+            className={cn("group flex items-center gap-4 rounded-2xl p-3 hover:bg-rose-50/60 transition", theme.ring)}
+          >
+            <div className={cn("shrink-0 text-[11px] font-bold w-7 h-7 grid place-items-center rounded-lg", theme.chip)}>
+              {String(i + 1).padStart(2, "0")}
+            </div>
+            <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-rose-50 text-rose-600 group-hover:bg-rose-100 transition">
+              <m.Icon className="h-4 w-4" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-[13.5px] font-semibold text-foreground truncate group-hover:text-rose-600 transition">{m.label}</div>
+              <div className="text-[11.5px] text-muted-foreground line-clamp-1">{m.desc}</div>
+            </div>
+            <ChevronDown className="h-4 w-4 -rotate-90 text-muted-foreground group-hover:text-rose-600 group-hover:translate-x-0.5 transition" />
+          </Link>
+        ))}
+      </div>,
+      "w-[560px]",
+    );
+  }
+
+  if (theme.layout === "stack") {
+    return wrap(
+      <div className="p-4 grid gap-2">
+        {items.map((m) => (
+          <Link
+            key={m.to}
+            to={m.to}
+            onClick={onClose}
+            className="group relative overflow-hidden flex items-center gap-4 rounded-2xl p-3.5 bg-gradient-to-r from-violet-50/60 to-white border border-violet-100 hover:border-violet-300 hover:shadow-soft transition"
+          >
+            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl gradient-violet text-white shadow-soft group-hover:scale-110 group-hover:rotate-3 transition">
+              <m.Icon className="h-5 w-5" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-[13.5px] font-bold text-foreground truncate">{m.label}</div>
+              <div className="text-[12px] text-muted-foreground line-clamp-1">{m.desc}</div>
+            </div>
+            <div className="text-violet-600 text-[11px] font-semibold opacity-0 group-hover:opacity-100 transition">Open →</div>
+          </Link>
+        ))}
+      </div>,
+      "w-[540px]",
+    );
+  }
+
+  // mosaic (gallery)
+  return wrap(
+    <div className="p-4 grid grid-cols-2 gap-2.5">
+      {items.map((m, i) => (
+        <Link
+          key={m.to}
+          to={m.to}
+          onClick={onClose}
+          className={cn(
+            "group relative overflow-hidden rounded-2xl p-4 border border-amber-100 hover:border-amber-300 transition min-h-[92px]",
+            i === 0 ? "col-span-2 bg-gradient-to-br from-amber-100 via-amber-50 to-white" : "bg-gradient-to-br from-amber-50/70 to-white",
+          )}
+        >
+          <div className="flex items-start justify-between">
+            <div className="grid h-9 w-9 place-items-center rounded-xl gradient-amber text-white shadow-soft group-hover:scale-110 transition">
+              <m.Icon className="h-4 w-4" />
+            </div>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-amber-600">{String(i + 1).padStart(2, "0")}</span>
+          </div>
+          <div className="mt-3 text-[14px] font-bold text-foreground">{m.label}</div>
+          <div className="text-[11.5px] text-muted-foreground line-clamp-2 mt-0.5">{m.desc}</div>
+        </Link>
+      ))}
+    </div>,
+    "w-[560px]",
   );
 }
