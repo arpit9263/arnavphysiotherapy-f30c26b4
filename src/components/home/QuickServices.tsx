@@ -71,19 +71,19 @@ export function QuickServices() {
                 className={`group relative block h-full rounded-3xl bg-gradient-to-br ${it.tone} border border-border/60 p-6 shadow-card hover:shadow-glow hover:-translate-y-1.5 transition-all duration-500 overflow-hidden`}
               >
                 <div className="relative z-10">
-                  <div className="grid h-12 w-12 place-items-center rounded-2xl gradient-teal text-white shadow-soft group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+                  <div className={`grid h-12 w-12 place-items-center rounded-2xl ${it.iconBg} text-white shadow-soft group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500`}>
                     <it.icon className="h-5 w-5" />
                   </div>
-                  <div className="mt-5 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
+                  <div className={`mt-5 text-[10px] font-bold uppercase tracking-[0.2em] ${it.accent}`}>
                     {it.kicker}
                   </div>
                   <h3 className="mt-2 text-lg font-bold text-foreground leading-snug">{it.title}</h3>
                   <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed line-clamp-2">{it.desc}</p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-primary group-hover:gap-2.5 transition-all">
+                  <span className={`mt-4 inline-flex items-center gap-1.5 text-xs font-semibold ${it.accent} group-hover:gap-2.5 transition-all`}>
                     Learn more <ArrowRight className="h-3.5 w-3.5" />
                   </span>
                 </div>
-                <div className="absolute -bottom-16 -right-16 h-40 w-40 rounded-full bg-primary/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className={`absolute -bottom-16 -right-16 h-40 w-40 rounded-full ${it.glow} blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
               </Link>
             </motion.div>
           ))}
