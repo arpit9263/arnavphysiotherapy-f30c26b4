@@ -233,46 +233,13 @@ export function Header() {
 
                   <AnimatePresence>
                     {mega && openMega === n.to && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                        transition={{ duration: 0.18 }}
-                        className="absolute left-1/2 -translate-x-1/2 top-full pt-3 z-40"
-                      >
-                        <div className="w-[640px] rounded-3xl border border-border bg-white/98 backdrop-blur-xl shadow-[0_20px_60px_-20px_rgba(15,23,42,0.25)] p-4">
-                          <div className="grid grid-cols-2 gap-1.5">
-                            {mega.map((m) => (
-                              <Link
-                                key={m.to}
-                                to={m.to}
-                                onClick={() => setOpenMega(null)}
-                                className="group flex gap-3 rounded-2xl p-3 hover:bg-primary/5 transition"
-                              >
-                                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition">
-                                  <m.Icon className="h-4 w-4" />
-                                </div>
-                                <div className="min-w-0">
-                                  <div className="text-[13px] font-semibold text-foreground group-hover:text-primary transition truncate">
-                                    {m.label}
-                                  </div>
-                                  <div className="text-[11.5px] text-muted-foreground leading-snug line-clamp-2 mt-0.5">
-                                    {m.desc}
-                                  </div>
-                                </div>
-                              </Link>
-                            ))}
-                          </div>
-                          <div className="mt-3 pt-3 border-t border-border flex items-center justify-between">
-                            <Link to={n.to} onClick={() => setOpenMega(null)} className="text-xs font-semibold text-primary hover:underline">
-                              View all {n.label.toLowerCase()} →
-                            </Link>
-                            <Link to="/book" onClick={() => setOpenMega(null)} className="rounded-full gradient-teal px-4 py-1.5 text-xs font-semibold text-white">
-                              Book Now
-                            </Link>
-                          </div>
-                        </div>
-                      </motion.div>
+                      <MegaPopover
+                        theme={megaThemes[n.to]}
+                        items={mega}
+                        navTo={n.to}
+                        navLabel={n.label}
+                        onClose={() => setOpenMega(null)}
+                      />
                     )}
                   </AnimatePresence>
                 </div>
