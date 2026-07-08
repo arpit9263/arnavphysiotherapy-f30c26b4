@@ -158,10 +158,20 @@ export function Footer() {
 
       <div className="relative border-t border-white/10 bg-black/20 backdrop-blur">
         <div className="container-page py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/60">
-          <p className="flex items-center gap-1.5">
-            © {year} {site.name}. Made with <Heart className="h-3 w-3 fill-current text-primary-glow" /> in Jhansi.
-          </p>
-          <div className="flex gap-5">
+          <div className="flex-1 text-center sm:text-left">
+            <p>© {year} {site.name}.</p>
+          </div>
+          <div className="flex-1 text-center">
+            <a
+              href="https://rewantechsolutions.com"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition"
+            >
+              Designed and Developed by Rewantechsolutions
+            </a>
+          </div>
+          <div className="flex-1 flex justify-center sm:justify-end gap-5">
             <Link to="/privacy" className="hover:text-white transition">Privacy</Link>
             <Link to="/terms" className="hover:text-white transition">Terms</Link>
             <Link to="/contact" className="hover:text-white transition">Contact</Link>
