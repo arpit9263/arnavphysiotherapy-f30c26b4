@@ -13,7 +13,10 @@ const items = [
     title: "Start Your Recovery",
     desc: "One-on-one assessment and a plan built around your goals.",
     to: "/services/manual-therapy",
-    tone: "from-teal-50 to-white",
+    tone: "from-teal-50 via-white to-white",
+    iconBg: "gradient-teal",
+    accent: "text-teal-600",
+    glow: "bg-teal-400/20",
   },
   {
     icon: Dumbbell,
@@ -21,7 +24,10 @@ const items = [
     title: "Return to Sport Stronger",
     desc: "Return-to-play pathway led by an MPT (Sports) specialist.",
     to: "/services/sports-rehabilitation",
-    tone: "from-cyan-50 to-white",
+    tone: "from-orange-50 via-white to-white",
+    iconBg: "gradient-coral",
+    accent: "text-orange-600",
+    glow: "bg-orange-400/20",
   },
   {
     icon: Brain,
@@ -29,7 +35,10 @@ const items = [
     title: "Regain Movement",
     desc: "Post-stroke, Parkinson's & neurological recovery programmes.",
     to: "/services/neurological-physiotherapy",
-    tone: "from-emerald-50 to-white",
+    tone: "from-violet-50 via-white to-white",
+    iconBg: "gradient-violet",
+    accent: "text-violet-600",
+    glow: "bg-violet-400/20",
   },
   {
     icon: Zap,
@@ -37,7 +46,10 @@ const items = [
     title: "Release Deep Pain",
     desc: "Dry needling, shockwave & manual therapy that actually works.",
     to: "/services/dry-needling",
-    tone: "from-amber-50 to-white",
+    tone: "from-amber-50 via-white to-white",
+    iconBg: "gradient-amber",
+    accent: "text-amber-600",
+    glow: "bg-amber-400/20",
   },
 ];
 
