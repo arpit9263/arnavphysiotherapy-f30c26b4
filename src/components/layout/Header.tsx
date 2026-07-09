@@ -49,42 +49,38 @@ type MegaTheme = {
   cta: string;
 };
 
+// Unified single-theme (teal) across every mega-menu.
+const tealBase = {
+  gradient: "gradient-teal",
+  chip: "text-teal-700 bg-teal-50",
+  soft: "from-teal-50/70 to-white",
+  ring: "hover:ring-teal-300/60",
+} as const;
+
 const megaThemes: Record<string, MegaTheme> = {
   "/services": {
-    gradient: "gradient-teal",
-    chip: "text-teal-600 bg-teal-50",
-    soft: "from-teal-50/70 to-white",
-    ring: "hover:ring-teal-300/60",
+    ...tealBase,
     layout: "grid",
     title: "Our Treatments",
     blurb: "Hands-on, evidence-based physiotherapy tailored to your goal.",
     cta: "Explore all services",
   },
   "/conditions": {
-    gradient: "gradient-rose",
-    chip: "text-rose-600 bg-rose-50",
-    soft: "from-rose-50/70 to-white",
-    ring: "hover:ring-rose-300/60",
+    ...tealBase,
     layout: "list",
     title: "Conditions We Treat",
     blurb: "From back pain to stroke recovery — we've got a plan for it.",
     cta: "See all conditions",
   },
   "/about": {
-    gradient: "gradient-violet",
-    chip: "text-violet-600 bg-violet-50",
-    soft: "from-violet-50/70 to-white",
-    ring: "hover:ring-violet-300/60",
+    ...tealBase,
     layout: "stack",
     title: "About Arnav Physio",
     blurb: "Meet the team, our philosophy and what patients say about us.",
     cta: "About the clinic",
   },
   "/gallery": {
-    gradient: "gradient-amber",
-    chip: "text-amber-600 bg-amber-50",
-    soft: "from-amber-50/70 to-white",
-    ring: "hover:ring-amber-300/60",
+    ...tealBase,
     layout: "mosaic",
     title: "Explore & Connect",
     blurb: "Photos, articles and quick ways to reach out.",
@@ -477,18 +473,18 @@ function MegaPopover({
             key={m.to}
             to={m.to}
             onClick={onClose}
-            className="group flex items-center gap-3 rounded-2xl p-2 hover:bg-rose-50/70 transition"
+            className="group flex items-center gap-3 rounded-2xl p-2 hover:bg-teal-/70 transition"
           >
-            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-rose-100 bg-rose-50">
+            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-teal- bg-teal-">
               {m.img ? (
                 <SafeImg src={m.img} alt="" className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" />
               ) : (
-                <div className="grid h-full w-full place-items-center text-rose-600"><m.Icon className="h-5 w-5" /></div>
+                <div className="grid h-full w-full place-items-center text-teal-"><m.Icon className="h-5 w-5" /></div>
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-rose-900/30 to-transparent opacity-0 group-hover:opacity-100 transition" />
+              <div className="absolute inset-0 bg-gradient-to-t from-teal-/30 to-transparent opacity-0 group-hover:opacity-100 transition" />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-[13px] font-semibold text-foreground truncate group-hover:text-rose-600 transition">{m.label}</div>
+              <div className="text-[13px] font-semibold text-foreground truncate group-hover:text-teal- transition">{m.label}</div>
               <div className="text-[11px] text-muted-foreground line-clamp-2 leading-snug">{m.desc}</div>
             </div>
           </Link>
@@ -502,13 +498,13 @@ function MegaPopover({
     return wrap(
       <div className="p-4 grid grid-cols-[180px_1fr] gap-4">
         {/* Doctor visual card */}
-        <div className="relative overflow-hidden rounded-2xl border border-violet-100 min-h-[220px]">
+        <div className="relative overflow-hidden rounded-2xl border border-teal- min-h-[220px]">
           <SafeImg
             src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80"
             alt="Dr. Dushyant Singh"
             className="absolute inset-0 h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-violet-900/90 via-violet-800/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-teal-/90 via-teal-/30 to-transparent" />
           <div className="absolute inset-0 flex flex-col justify-end p-3 text-white">
             <span className="inline-flex w-fit items-center gap-1 rounded-full bg-white/20 backdrop-blur border border-white/30 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest">Founder</span>
             <div className="mt-1.5 text-[12.5px] font-bold leading-tight">Dr. Dushyant Singh</div>
@@ -522,16 +518,16 @@ function MegaPopover({
               key={m.to}
               to={m.to}
               onClick={onClose}
-              className="group relative overflow-hidden flex items-center gap-3 rounded-xl p-2.5 bg-gradient-to-r from-violet-50/60 to-white border border-violet-100 hover:border-violet-300 hover:shadow-soft transition"
+              className="group relative overflow-hidden flex items-center gap-3 rounded-xl p-2.5 bg-gradient-to-r from-teal-/60 to-white border border-teal- hover:border-teal- hover:shadow-soft transition"
             >
-              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg gradient-violet text-white shadow-soft group-hover:scale-110 group-hover:rotate-3 transition">
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg gradient-teal text-white shadow-soft group-hover:scale-110 group-hover:rotate-3 transition">
                 <m.Icon className="h-4 w-4" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="text-[13px] font-bold text-foreground truncate">{m.label}</div>
                 <div className="text-[11px] text-muted-foreground line-clamp-1">{m.desc}</div>
               </div>
-              <div className="text-violet-600 text-[11px] font-semibold opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">→</div>
+              <div className="text-teal- text-[11px] font-semibold opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">→</div>
             </Link>
           ))}
         </div>
@@ -549,14 +545,14 @@ function MegaPopover({
           to={m.to}
           onClick={onClose}
           className={cn(
-            "group relative overflow-hidden rounded-2xl border border-amber-100 hover:border-amber-300 transition min-h-[112px]",
+            "group relative overflow-hidden rounded-2xl border border-teal- hover:border-teal- transition min-h-[112px]",
             i === 0 && "col-span-2 min-h-[140px]",
           )}
         >
           {m.img && (
             <SafeImg src={m.img} alt="" className="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700" />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-amber-900/85 via-amber-800/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-teal-/85 via-teal-/40 to-transparent" />
           <div className="relative h-full flex flex-col justify-between p-3.5 text-white">
             <div className="flex items-start justify-between">
               <div className="grid h-8 w-8 place-items-center rounded-lg bg-white/25 backdrop-blur border border-white/30">

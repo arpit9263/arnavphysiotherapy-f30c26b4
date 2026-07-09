@@ -2,16 +2,17 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/home/Hero";
 import { QuickServices } from "@/components/home/QuickServices";
 import { FeaturedTreatments } from "@/components/home/FeaturedTreatments";
+import { WhyChoose } from "@/components/home/WhyChoose";
+import { StatsCounter } from "@/components/home/StatsCounter";
+import { BodyMapFinder } from "@/components/home/BodyMapFinder";
 import { ConditionsSlider } from "@/components/home/ConditionsSlider";
 import { TreatmentsGrid } from "@/components/home/TreatmentsGrid";
-import { WhyChoose } from "@/components/home/WhyChoose";
 import { AboutBlock } from "@/components/home/AboutBlock";
 import { DoctorProfile } from "@/components/home/DoctorProfile";
 import { ProcessTimeline } from "@/components/home/ProcessTimeline";
-import { Testimonials } from "@/components/home/Testimonials";
-import { GalleryPreview } from "@/components/home/GalleryPreview";
-import { StatsCounter } from "@/components/home/StatsCounter";
 import { VideoShowcase } from "@/components/home/VideoShowcase";
+import { GalleryPreview } from "@/components/home/GalleryPreview";
+import { Testimonials } from "@/components/home/Testimonials";
 import { FAQ } from "@/components/home/FAQ";
 import { BlogPreview } from "@/components/home/BlogPreview";
 import { BookCTA } from "@/components/home/BookCTA";
@@ -53,16 +54,17 @@ function Index() {
       <Hero />
       <QuickServices />
       <FeaturedTreatments />
-      <ConditionsSlider />
-      <TreatmentsGrid />
       <WhyChoose />
       <StatsCounter />
+      <BodyMapFinder />
+      <ConditionsSlider />
+      <TreatmentsGrid />
       <AboutBlock />
       <DoctorProfile />
       <ProcessTimeline />
       <VideoShowcase />
-      <Testimonials />
       <GalleryPreview />
+      <Testimonials />
       <FAQ />
       <BlogPreview />
       <BookCTA />
