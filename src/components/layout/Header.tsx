@@ -8,7 +8,7 @@ import {
   Info, HelpCircle, Calendar, Star,
 } from "lucide-react";
 import { nav, site } from "@/lib/site";
-import { services, conditions } from "@/lib/data";
+import { services, conditions, galleryItems } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { SearchDialog } from "@/components/search/SearchDialog";
 
@@ -99,6 +99,7 @@ function buildMega(kind: string): MegaItem[] | null {
       label: s.name,
       desc: s.short,
       Icon: serviceIcons[s.slug] || Stethoscope,
+      img: s.image,
     }));
   }
   if (kind === "/conditions") {
@@ -119,11 +120,12 @@ function buildMega(kind: string): MegaItem[] | null {
     ];
   }
   if (kind === "/gallery") {
+    const imgs = galleryItems.map((g) => g.src);
     return [
-      { to: "/gallery", label: "Clinic Gallery", desc: "Facilities, treatments and results.", Icon: ImageIcon },
-      { to: "/blog", label: "Health Blog", desc: "Tips, guides & wellness reads.", Icon: BookOpen },
-      { to: "/contact", label: "Contact", desc: "Reach out — we'll get back fast.", Icon: MessageSquare },
-      { to: "/book", label: "Book Now", desc: "Reserve a personalised session.", Icon: Calendar },
+      { to: "/gallery", label: "Clinic Gallery", desc: "Facilities, treatments and results.", Icon: ImageIcon, img: imgs[0] },
+      { to: "/blog", label: "Health Blog", desc: "Tips, guides & wellness reads.", Icon: BookOpen, img: imgs[3] },
+      { to: "/contact", label: "Contact", desc: "Reach out — we'll get back fast.", Icon: MessageSquare, img: imgs[8] },
+      { to: "/book", label: "Book Now", desc: "Reserve a personalised session.", Icon: Calendar, img: imgs[5] },
     ];
   }
   return null;
