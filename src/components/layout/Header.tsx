@@ -423,26 +423,49 @@ function MegaPopover({
   );
 
   if (theme.layout === "grid") {
+    const [featured, ...rest] = items;
     return wrap(
-      <div className="p-4 grid grid-cols-2 gap-1.5">
-        {items.map((m) => (
-          <Link
-            key={m.to}
-            to={m.to}
-            onClick={onClose}
-            className={cn("group flex gap-3 rounded-2xl p-3 ring-1 ring-transparent transition-all hover:bg-muted/50", theme.ring)}
-          >
-            <div className={cn("grid h-10 w-10 shrink-0 place-items-center rounded-xl text-white shadow-soft group-hover:scale-110 transition", theme.gradient)}>
-              <m.Icon className="h-4 w-4" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-[13px] font-semibold text-foreground truncate">{m.label}</div>
-              <div className="text-[11.5px] text-muted-foreground leading-snug line-clamp-2 mt-0.5">{m.desc}</div>
-            </div>
-          </Link>
-        ))}
+      <div className="p-4 grid grid-cols-[minmax(0,220px)_1fr] gap-4">
+        {/* Featured showcase card */}
+        <Link
+          to={featured.to}
+          onClick={onClose}
+          className="group relative overflow-hidden rounded-2xl border border-teal-100 shadow-soft hover:shadow-glow transition"
+        >
+          {featured.img && (
+            <SafeImg src={featured.img} alt="" className="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-teal-900/85 via-teal-800/40 to-transparent" />
+          <div className="absolute inset-0 flex flex-col justify-end p-4 text-white">
+            <span className="inline-flex w-fit items-center gap-1 rounded-full bg-white/20 backdrop-blur border border-white/25 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest">Featured</span>
+            <div className="mt-2 text-[15px] font-bold leading-tight">{featured.label}</div>
+            <div className="mt-1 text-[11px] text-white/85 line-clamp-2 leading-snug">{featured.desc}</div>
+            <span className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-semibold text-white/95 group-hover:gap-2 transition-all">
+              View treatment <ChevronDown className="h-3 w-3 -rotate-90" />
+            </span>
+          </div>
+        </Link>
+        {/* Compact grid */}
+        <div className="grid grid-cols-2 gap-1.5">
+          {rest.map((m) => (
+            <Link
+              key={m.to}
+              to={m.to}
+              onClick={onClose}
+              className={cn("group flex gap-2.5 rounded-xl p-2.5 ring-1 ring-transparent transition-all hover:bg-teal-50/60", theme.ring)}
+            >
+              <div className={cn("grid h-9 w-9 shrink-0 place-items-center rounded-lg text-white shadow-soft group-hover:scale-110 group-hover:rotate-3 transition", theme.gradient)}>
+                <m.Icon className="h-4 w-4" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[12.5px] font-semibold text-foreground truncate group-hover:text-teal-700 transition">{m.label}</div>
+                <div className="text-[11px] text-muted-foreground leading-snug line-clamp-2 mt-0.5">{m.desc}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>,
-      "w-[680px]",
+      "w-[720px]",
     );
   }
 
