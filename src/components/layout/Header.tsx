@@ -37,7 +37,7 @@ const conditionIcons: Record<string, any> = {
   "post-surgery-rehab": HeartPulse,
 };
 
-type MegaItem = { to: string; label: string; desc: string; Icon: any };
+type MegaItem = { to: string; label: string; desc: string; Icon: any; img?: string };
 type MegaTheme = {
   gradient: string;      // utility class
   chip: string;          // small text/badge color
@@ -107,6 +107,7 @@ function buildMega(kind: string): MegaItem[] | null {
       label: c.name,
       desc: c.summary,
       Icon: conditionIcons[c.slug] || HeartPulse,
+      img: c.image,
     }));
   }
   if (kind === "/about") {
@@ -359,6 +360,19 @@ function LogoMark() {
   );
 }
 
+function SafeImg({ src, alt, className }: { src: string; alt: string; className?: string }) {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      className={className}
+      onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg"; }}
+    />
+  );
+}
+
+
 function MegaPopover({
   theme,
   items,
@@ -432,29 +446,30 @@ function MegaPopover({
 
   if (theme.layout === "list") {
     return wrap(
-      <div className="p-3">
-        {items.map((m, i) => (
+      <div className="p-3 grid grid-cols-2 gap-1.5">
+        {items.map((m) => (
           <Link
             key={m.to}
             to={m.to}
             onClick={onClose}
-            className={cn("group flex items-center gap-4 rounded-2xl p-3 hover:bg-rose-50/60 transition", theme.ring)}
+            className="group flex items-center gap-3 rounded-2xl p-2 hover:bg-rose-50/70 transition"
           >
-            <div className={cn("shrink-0 text-[11px] font-bold w-7 h-7 grid place-items-center rounded-lg", theme.chip)}>
-              {String(i + 1).padStart(2, "0")}
-            </div>
-            <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-rose-50 text-rose-600 group-hover:bg-rose-100 transition">
-              <m.Icon className="h-4 w-4" />
+            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-rose-100 bg-rose-50">
+              {m.img ? (
+                <SafeImg src={m.img} alt="" className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              ) : (
+                <div className="grid h-full w-full place-items-center text-rose-600"><m.Icon className="h-5 w-5" /></div>
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-rose-900/30 to-transparent opacity-0 group-hover:opacity-100 transition" />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-[13.5px] font-semibold text-foreground truncate group-hover:text-rose-600 transition">{m.label}</div>
-              <div className="text-[11.5px] text-muted-foreground line-clamp-1">{m.desc}</div>
+              <div className="text-[13px] font-semibold text-foreground truncate group-hover:text-rose-600 transition">{m.label}</div>
+              <div className="text-[11px] text-muted-foreground line-clamp-2 leading-snug">{m.desc}</div>
             </div>
-            <ChevronDown className="h-4 w-4 -rotate-90 text-muted-foreground group-hover:text-rose-600 group-hover:translate-x-0.5 transition" />
           </Link>
         ))}
       </div>,
-      "w-[560px]",
+      "w-[680px]",
     );
   }
 

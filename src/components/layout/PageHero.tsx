@@ -35,7 +35,12 @@ export function PageHero({
   return (
     <section className="relative overflow-hidden">
       {/* Background image + strong colorful scrim */}
-      <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover" />
+      <img
+        src={image}
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover"
+        onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg"; }}
+      />
       <div className={`absolute inset-0 bg-gradient-to-br ${a.grad} opacity-90`} />
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50" />
 
