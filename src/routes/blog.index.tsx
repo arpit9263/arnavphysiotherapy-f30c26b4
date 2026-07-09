@@ -18,7 +18,7 @@ function BlogList() {
   const [first, ...rest] = blogs;
   return (
     <>
-      <PageHero eyebrow="Journal" title="Notes on movement and recovery"
+      <PageHero accent="amber" eyebrow="Journal" title="Notes on movement and recovery"
         subtitle="Practical, evidence-based reads for everyday wellness."
         breadcrumbs={[{ label: "Blog" }]} />
       <section className="py-14 md:py-20">

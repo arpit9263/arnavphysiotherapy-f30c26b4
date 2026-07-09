@@ -5,7 +5,7 @@ export const Route = createFileRoute("/privacy")({
   head: () => ({ meta: [{ title: "Privacy Policy — Arnav Physio" }] }),
   component: () => (
     <>
-      <PageHero eyebrow="Legal" title="Privacy Policy" breadcrumbs={[{ label: "Privacy" }]} />
+      <PageHero accent="violet" eyebrow="Legal" title="Privacy Policy" breadcrumbs={[{ label: "Privacy" }]} />
       <section className="py-14 md:py-20">
         <article className="container-page max-w-3xl prose prose-slate">
           <p className="text-muted-foreground">We take your privacy seriously. This page describes how we collect, use, and protect the information you share with us when you book an appointment or contact the clinic.</p>

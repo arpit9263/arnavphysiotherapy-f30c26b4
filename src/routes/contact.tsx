@@ -51,7 +51,7 @@ function ContactPage() {
   return (
 
     <>
-      <PageHero eyebrow="Contact" title="Let's talk about your recovery"
+      <PageHero accent="coral" eyebrow="Contact" title="Let's talk about your recovery"
         subtitle="Call, WhatsApp, or send us a message — we usually reply the same day."
         breadcrumbs={[{ label: "Contact" }]} />
 

@@ -35,7 +35,7 @@ function ServiceDetail() {
   const related = services.filter((s) => s.slug !== service.slug).slice(0, 3);
   return (
     <>
-      <PageHero eyebrow="Service" title={service.name} subtitle={service.short}
+      <PageHero accent="teal" eyebrow="Service" title={service.name} subtitle={service.short}
         image={service.image}
         breadcrumbs={[{ label: "Services", to: "/services" }, { label: service.name }]} />
 

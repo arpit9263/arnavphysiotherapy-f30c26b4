@@ -5,7 +5,7 @@ export const Route = createFileRoute("/terms")({
   head: () => ({ meta: [{ title: "Terms & Conditions — Arnav Physio" }] }),
   component: () => (
     <>
-      <PageHero eyebrow="Legal" title="Terms & Conditions" breadcrumbs={[{ label: "Terms" }]} />
+      <PageHero accent="violet" eyebrow="Legal" title="Terms & Conditions" breadcrumbs={[{ label: "Terms" }]} />
       <section className="py-14 md:py-20">
         <article className="container-page max-w-3xl prose prose-slate">
           <p className="text-muted-foreground">By booking an appointment or using this website you agree to these terms.</p>

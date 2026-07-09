@@ -18,7 +18,7 @@ export const Route = createFileRoute("/conditions/")({
 function ConditionsPage() {
   return (
     <>
-      <PageHero eyebrow="Conditions" title="Conditions we help you recover from"
+      <PageHero accent="rose" eyebrow="Conditions" title="Conditions we help you recover from"
         subtitle="Whether it's an everyday ache or a complex recovery, we've likely seen it — and we know exactly how to help."
         breadcrumbs={[{ label: "Conditions" }]} />
       <section className="py-16 md:py-24">
