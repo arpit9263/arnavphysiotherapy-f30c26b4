@@ -30,6 +30,7 @@ function AboutPage() {
   return (
     <>
       <PageHero
+        accent="violet"
         eyebrow="About Us"
         title="A quieter, more human way to recover"
         subtitle="We are a modern physiotherapy and rehabilitation practice in Jhansi, blending evidence-based care with genuine, unhurried attention."

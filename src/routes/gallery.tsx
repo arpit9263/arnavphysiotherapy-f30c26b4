@@ -47,6 +47,7 @@ function GalleryPage() {
   return (
     <>
       <PageHero
+        accent="amber"
         eyebrow="Gallery"
         title="Inside Arnav Physio"
         subtitle="A calm, modern clinic built around recovery — clinic space, equipment and real treatment sessions."
