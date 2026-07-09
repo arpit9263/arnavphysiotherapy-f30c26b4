@@ -14,15 +14,15 @@ const rotating = [
 const slides = [
   {
     eyebrow: "Move Better • Live Pain-Free",
-    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=2000&q=80",
+    image: "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=2000&q=80",
   },
   {
     eyebrow: "Evidence-Based • Personalised Care",
-    image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=2000&q=80",
+    image: "https://images.unsplash.com/photo-1666214280391-8b7d5b7b8b0e?auto=format&fit=crop&w=2000&q=80",
   },
   {
     eyebrow: "Recover Faster • Return Stronger",
-    image: "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?auto=format&fit=crop&w=2000&q=80",
+    image: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=2000&q=80",
   },
 ];
 
