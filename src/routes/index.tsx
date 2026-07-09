@@ -54,16 +54,17 @@ function Index() {
       <Hero />
       <QuickServices />
       <FeaturedTreatments />
-      <ConditionsSlider />
-      <TreatmentsGrid />
       <WhyChoose />
       <StatsCounter />
+      <BodyMapFinder />
+      <ConditionsSlider />
+      <TreatmentsGrid />
       <AboutBlock />
       <DoctorProfile />
       <ProcessTimeline />
       <VideoShowcase />
-      <Testimonials />
       <GalleryPreview />
+      <Testimonials />
       <FAQ />
       <BlogPreview />
       <BookCTA />
