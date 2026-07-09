@@ -370,6 +370,8 @@ function SafeImg({ src, alt, className }: { src: string; alt: string; className?
       onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg"; }}
     />
   );
+}
+
 
 function MegaPopover({
   theme,
