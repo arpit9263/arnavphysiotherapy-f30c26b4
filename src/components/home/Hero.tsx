@@ -56,7 +56,12 @@ export function Hero() {
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="absolute inset-0"
         >
-          <img src={s.image} alt="" className="w-full h-full object-cover" />
+          <img
+            src={s.image}
+            alt=""
+            className="w-full h-full object-cover"
+            onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg"; }}
+          />
           {/* Strong readable overlay — dark base + colorful accent wash */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/60 to-black/80" />
           <div className="absolute inset-0 bg-gradient-to-tr from-teal-900/50 via-transparent to-rose-900/30" />
