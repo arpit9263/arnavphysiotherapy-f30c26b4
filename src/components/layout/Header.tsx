@@ -8,7 +8,7 @@ import {
   Info, HelpCircle, Calendar, Star,
 } from "lucide-react";
 import { nav, site } from "@/lib/site";
-import { services, conditions } from "@/lib/data";
+import { services, conditions, galleryItems } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { SearchDialog } from "@/components/search/SearchDialog";
 
@@ -99,6 +99,7 @@ function buildMega(kind: string): MegaItem[] | null {
       label: s.name,
       desc: s.short,
       Icon: serviceIcons[s.slug] || Stethoscope,
+      img: s.image,
     }));
   }
   if (kind === "/conditions") {
@@ -119,11 +120,12 @@ function buildMega(kind: string): MegaItem[] | null {
     ];
   }
   if (kind === "/gallery") {
+    const imgs = galleryItems.map((g) => g.src);
     return [
-      { to: "/gallery", label: "Clinic Gallery", desc: "Facilities, treatments and results.", Icon: ImageIcon },
-      { to: "/blog", label: "Health Blog", desc: "Tips, guides & wellness reads.", Icon: BookOpen },
-      { to: "/contact", label: "Contact", desc: "Reach out — we'll get back fast.", Icon: MessageSquare },
-      { to: "/book", label: "Book Now", desc: "Reserve a personalised session.", Icon: Calendar },
+      { to: "/gallery", label: "Clinic Gallery", desc: "Facilities, treatments and results.", Icon: ImageIcon, img: imgs[0] },
+      { to: "/blog", label: "Health Blog", desc: "Tips, guides & wellness reads.", Icon: BookOpen, img: imgs[3] },
+      { to: "/contact", label: "Contact", desc: "Reach out — we'll get back fast.", Icon: MessageSquare, img: imgs[8] },
+      { to: "/book", label: "Book Now", desc: "Reserve a personalised session.", Icon: Calendar, img: imgs[5] },
     ];
   }
   return null;
@@ -421,26 +423,49 @@ function MegaPopover({
   );
 
   if (theme.layout === "grid") {
+    const [featured, ...rest] = items;
     return wrap(
-      <div className="p-4 grid grid-cols-2 gap-1.5">
-        {items.map((m) => (
-          <Link
-            key={m.to}
-            to={m.to}
-            onClick={onClose}
-            className={cn("group flex gap-3 rounded-2xl p-3 ring-1 ring-transparent transition-all hover:bg-muted/50", theme.ring)}
-          >
-            <div className={cn("grid h-10 w-10 shrink-0 place-items-center rounded-xl text-white shadow-soft group-hover:scale-110 transition", theme.gradient)}>
-              <m.Icon className="h-4 w-4" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-[13px] font-semibold text-foreground truncate">{m.label}</div>
-              <div className="text-[11.5px] text-muted-foreground leading-snug line-clamp-2 mt-0.5">{m.desc}</div>
-            </div>
-          </Link>
-        ))}
+      <div className="p-4 grid grid-cols-[minmax(0,220px)_1fr] gap-4">
+        {/* Featured showcase card */}
+        <Link
+          to={featured.to}
+          onClick={onClose}
+          className="group relative overflow-hidden rounded-2xl border border-teal-100 shadow-soft hover:shadow-glow transition"
+        >
+          {featured.img && (
+            <SafeImg src={featured.img} alt="" className="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-teal-900/85 via-teal-800/40 to-transparent" />
+          <div className="absolute inset-0 flex flex-col justify-end p-4 text-white">
+            <span className="inline-flex w-fit items-center gap-1 rounded-full bg-white/20 backdrop-blur border border-white/25 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest">Featured</span>
+            <div className="mt-2 text-[15px] font-bold leading-tight">{featured.label}</div>
+            <div className="mt-1 text-[11px] text-white/85 line-clamp-2 leading-snug">{featured.desc}</div>
+            <span className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-semibold text-white/95 group-hover:gap-2 transition-all">
+              View treatment <ChevronDown className="h-3 w-3 -rotate-90" />
+            </span>
+          </div>
+        </Link>
+        {/* Compact grid */}
+        <div className="grid grid-cols-2 gap-1.5">
+          {rest.map((m) => (
+            <Link
+              key={m.to}
+              to={m.to}
+              onClick={onClose}
+              className={cn("group flex gap-2.5 rounded-xl p-2.5 ring-1 ring-transparent transition-all hover:bg-teal-50/60", theme.ring)}
+            >
+              <div className={cn("grid h-9 w-9 shrink-0 place-items-center rounded-lg text-white shadow-soft group-hover:scale-110 group-hover:rotate-3 transition", theme.gradient)}>
+                <m.Icon className="h-4 w-4" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[12.5px] font-semibold text-foreground truncate group-hover:text-teal-700 transition">{m.label}</div>
+                <div className="text-[11px] text-muted-foreground leading-snug line-clamp-2 mt-0.5">{m.desc}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>,
-      "w-[680px]",
+      "w-[720px]",
     );
   }
 
@@ -475,30 +500,47 @@ function MegaPopover({
 
   if (theme.layout === "stack") {
     return wrap(
-      <div className="p-4 grid gap-2">
-        {items.map((m) => (
-          <Link
-            key={m.to}
-            to={m.to}
-            onClick={onClose}
-            className="group relative overflow-hidden flex items-center gap-4 rounded-2xl p-3.5 bg-gradient-to-r from-violet-50/60 to-white border border-violet-100 hover:border-violet-300 hover:shadow-soft transition"
-          >
-            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl gradient-violet text-white shadow-soft group-hover:scale-110 group-hover:rotate-3 transition">
-              <m.Icon className="h-5 w-5" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-[13.5px] font-bold text-foreground truncate">{m.label}</div>
-              <div className="text-[12px] text-muted-foreground line-clamp-1">{m.desc}</div>
-            </div>
-            <div className="text-violet-600 text-[11px] font-semibold opacity-0 group-hover:opacity-100 transition">Open →</div>
-          </Link>
-        ))}
+      <div className="p-4 grid grid-cols-[180px_1fr] gap-4">
+        {/* Doctor visual card */}
+        <div className="relative overflow-hidden rounded-2xl border border-violet-100 min-h-[220px]">
+          <SafeImg
+            src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80"
+            alt="Dr. Dushyant Singh"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-violet-900/90 via-violet-800/30 to-transparent" />
+          <div className="absolute inset-0 flex flex-col justify-end p-3 text-white">
+            <span className="inline-flex w-fit items-center gap-1 rounded-full bg-white/20 backdrop-blur border border-white/30 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest">Founder</span>
+            <div className="mt-1.5 text-[12.5px] font-bold leading-tight">Dr. Dushyant Singh</div>
+            <div className="text-[10px] text-white/85">BPT, MPT (Sports)</div>
+          </div>
+        </div>
+        {/* Stack of links */}
+        <div className="grid gap-2">
+          {items.map((m) => (
+            <Link
+              key={m.to}
+              to={m.to}
+              onClick={onClose}
+              className="group relative overflow-hidden flex items-center gap-3 rounded-xl p-2.5 bg-gradient-to-r from-violet-50/60 to-white border border-violet-100 hover:border-violet-300 hover:shadow-soft transition"
+            >
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg gradient-violet text-white shadow-soft group-hover:scale-110 group-hover:rotate-3 transition">
+                <m.Icon className="h-4 w-4" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-[13px] font-bold text-foreground truncate">{m.label}</div>
+                <div className="text-[11px] text-muted-foreground line-clamp-1">{m.desc}</div>
+              </div>
+              <div className="text-violet-600 text-[11px] font-semibold opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">→</div>
+            </Link>
+          ))}
+        </div>
       </div>,
-      "w-[540px]",
+      "w-[600px]",
     );
   }
 
-  // mosaic (gallery)
+  // mosaic (gallery / explore)
   return wrap(
     <div className="p-4 grid grid-cols-2 gap-2.5">
       {items.map((m, i) => (
@@ -507,21 +549,29 @@ function MegaPopover({
           to={m.to}
           onClick={onClose}
           className={cn(
-            "group relative overflow-hidden rounded-2xl p-4 border border-amber-100 hover:border-amber-300 transition min-h-[92px]",
-            i === 0 ? "col-span-2 bg-gradient-to-br from-amber-100 via-amber-50 to-white" : "bg-gradient-to-br from-amber-50/70 to-white",
+            "group relative overflow-hidden rounded-2xl border border-amber-100 hover:border-amber-300 transition min-h-[112px]",
+            i === 0 && "col-span-2 min-h-[140px]",
           )}
         >
-          <div className="flex items-start justify-between">
-            <div className="grid h-9 w-9 place-items-center rounded-xl gradient-amber text-white shadow-soft group-hover:scale-110 transition">
-              <m.Icon className="h-4 w-4" />
+          {m.img && (
+            <SafeImg src={m.img} alt="" className="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-amber-900/85 via-amber-800/40 to-transparent" />
+          <div className="relative h-full flex flex-col justify-between p-3.5 text-white">
+            <div className="flex items-start justify-between">
+              <div className="grid h-8 w-8 place-items-center rounded-lg bg-white/25 backdrop-blur border border-white/30">
+                <m.Icon className="h-3.5 w-3.5" />
+              </div>
+              <span className="text-[9px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur rounded-full px-2 py-0.5">{String(i + 1).padStart(2, "0")}</span>
             </div>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-amber-600">{String(i + 1).padStart(2, "0")}</span>
+            <div>
+              <div className="text-[14px] font-bold leading-tight">{m.label}</div>
+              <div className="text-[11px] text-white/85 line-clamp-1 mt-0.5">{m.desc}</div>
+            </div>
           </div>
-          <div className="mt-3 text-[14px] font-bold text-foreground">{m.label}</div>
-          <div className="text-[11.5px] text-muted-foreground line-clamp-2 mt-0.5">{m.desc}</div>
         </Link>
       ))}
     </div>,
-    "w-[560px]",
+    "w-[600px]",
   );
 }
