@@ -14,15 +14,15 @@ const rotating = [
 const slides = [
   {
     eyebrow: "Move Better • Live Pain-Free",
-    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=2000&q=80",
+    image: "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=2000&q=80",
   },
   {
     eyebrow: "Evidence-Based • Personalised Care",
-    image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=2000&q=80",
+    image: "https://images.unsplash.com/photo-1666214280391-8b7d5b7b8b0e?auto=format&fit=crop&w=2000&q=80",
   },
   {
     eyebrow: "Recover Faster • Return Stronger",
-    image: "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?auto=format&fit=crop&w=2000&q=80",
+    image: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=2000&q=80",
   },
 ];
 
@@ -57,9 +57,10 @@ export function Hero() {
           className="absolute inset-0"
         >
           <img src={s.image} alt="" className="w-full h-full object-cover" />
-          {/* Reduced overlay — image stays clearly visible */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/25 to-black/50" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/25 via-transparent to-black/10" />
+          {/* Strong readable overlay — dark base + colorful accent wash */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/60 to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-teal-900/50 via-transparent to-rose-900/30" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.35)_100%)]" />
         </motion.div>
       </AnimatePresence>
 

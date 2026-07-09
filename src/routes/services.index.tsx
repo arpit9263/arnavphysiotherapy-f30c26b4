@@ -18,7 +18,7 @@ export const Route = createFileRoute("/services/")({
 function ServicesPage() {
   return (
     <>
-      <PageHero eyebrow="Services" title="Physiotherapy that meets you where you are"
+      <PageHero accent="teal" eyebrow="Services" title="Physiotherapy that meets you where you are"
         subtitle="A complete toolkit of hands-on and modern therapy — combined into a plan built around your goals."
         breadcrumbs={[{ label: "Services" }]} />
       <section className="py-16 md:py-24">

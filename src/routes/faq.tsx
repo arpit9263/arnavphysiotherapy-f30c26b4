@@ -12,7 +12,7 @@ export const Route = createFileRoute("/faq")({
   }),
   component: () => (
     <>
-      <PageHero eyebrow="FAQ" title="Your questions, answered"
+      <PageHero accent="sky" eyebrow="FAQ" title="Your questions, answered"
         subtitle="Everything you need to know before booking your first session."
         breadcrumbs={[{ label: "FAQ" }]} />
       <FAQ />

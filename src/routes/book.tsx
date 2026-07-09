@@ -58,7 +58,7 @@ function BookPage() {
 
   return (
     <>
-      <PageHero eyebrow="Book Appointment" title="Book a personalised assessment"
+      <PageHero accent="coral" eyebrow="Book Appointment" title="Book a personalised assessment"
         subtitle={`Evening consultations with ${site.doctor} — ${site.hours}.`}
         breadcrumbs={[{ label: "Book" }]} />
 

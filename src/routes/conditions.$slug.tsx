@@ -46,7 +46,7 @@ function ConditionDetail() {
   ];
   return (
     <>
-      <PageHero eyebrow="Condition" title={condition.name} subtitle={condition.summary}
+      <PageHero accent="rose" eyebrow="Condition" title={condition.name} subtitle={condition.summary}
         image={condition.image}
         breadcrumbs={[{ label: "Conditions", to: "/conditions" }, { label: condition.name }]} />
       <section className="py-16 md:py-24">

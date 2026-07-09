@@ -14,7 +14,7 @@ export const Route = createFileRoute("/testimonials")({
   }),
   component: () => (
     <>
-      <PageHero eyebrow="Success Stories" title="Real recoveries. Real people."
+      <PageHero accent="violet" eyebrow="Success Stories" title="Real recoveries. Real people."
         subtitle="Every story below is from someone who trusted us with their recovery."
         breadcrumbs={[{ label: "Testimonials" }]} />
       <Testimonials />

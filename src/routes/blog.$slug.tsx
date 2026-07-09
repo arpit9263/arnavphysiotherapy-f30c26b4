@@ -34,7 +34,7 @@ function BlogDetail() {
   const { post } = Route.useLoaderData();
   return (
     <>
-      <PageHero eyebrow={post.category} title={post.title} subtitle={post.excerpt}
+      <PageHero accent="amber" eyebrow={post.category} title={post.title} subtitle={post.excerpt}
         image={post.image}
         breadcrumbs={[{ label: "Blog", to: "/blog" }, { label: post.title }]} />
       <section className="py-14 md:py-20">

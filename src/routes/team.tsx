@@ -16,7 +16,7 @@ export const Route = createFileRoute("/team")({
 function TeamPage() {
   return (
     <>
-      <PageHero eyebrow="Our Team" title="Certified physiotherapists who care"
+      <PageHero accent="violet" eyebrow="Our Team" title="Certified physiotherapists who care"
         subtitle="A small, senior team led by a MPT (Sports) specialist — trained in evidence-based rehabilitation."
         breadcrumbs={[{ label: "Team" }]} />
       <TeamGrid />
