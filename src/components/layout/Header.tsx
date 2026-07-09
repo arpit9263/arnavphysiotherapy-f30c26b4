@@ -37,7 +37,7 @@ const conditionIcons: Record<string, any> = {
   "post-surgery-rehab": HeartPulse,
 };
 
-type MegaItem = { to: string; label: string; desc: string; Icon: any };
+type MegaItem = { to: string; label: string; desc: string; Icon: any; img?: string };
 type MegaTheme = {
   gradient: string;      // utility class
   chip: string;          // small text/badge color
@@ -107,6 +107,7 @@ function buildMega(kind: string): MegaItem[] | null {
       label: c.name,
       desc: c.summary,
       Icon: conditionIcons[c.slug] || HeartPulse,
+      img: c.image,
     }));
   }
   if (kind === "/about") {
