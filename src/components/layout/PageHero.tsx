@@ -92,7 +92,15 @@ export function PageHero({
         {children && <div className="mt-8">{children}</div>}
       </div>
 
-      <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-b from-transparent to-background" />
+      {/* Curved bottom finish */}
+      <svg
+        className="absolute -bottom-px inset-x-0 w-full h-12 md:h-16 text-background"
+        viewBox="0 0 1440 80"
+        preserveAspectRatio="none"
+        aria-hidden
+      >
+        <path fill="currentColor" d="M0,80 L0,40 C240,90 480,10 720,30 C960,50 1200,90 1440,20 L1440,80 Z" />
+      </svg>
     </section>
   );
 }
