@@ -12,6 +12,10 @@ const cards = [
     Icon: HeartPulse,
     image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200&q=80",
     tag: "Manual Therapy",
+    iconBg: "gradient-teal",
+    scrim: "from-teal-900/75",
+    badge: "text-teal-700",
+    arrow: "text-teal-700",
   },
   {
     eyebrow: "Personalised",
@@ -21,6 +25,10 @@ const cards = [
     Icon: Activity,
     image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1200&q=80",
     tag: "Exercise Therapy",
+    iconBg: "gradient-emerald",
+    scrim: "from-emerald-900/75",
+    badge: "text-emerald-700",
+    arrow: "text-emerald-700",
   },
   {
     eyebrow: "Trusted Recovery",
@@ -30,6 +38,10 @@ const cards = [
     Icon: Dumbbell,
     image: "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?auto=format&fit=crop&w=1200&q=80",
     tag: "Sports Rehab",
+    iconBg: "gradient-coral",
+    scrim: "from-orange-900/75",
+    badge: "text-orange-700",
+    arrow: "text-orange-700",
   },
   {
     eyebrow: "Long-Term Support",
@@ -39,6 +51,10 @@ const cards = [
     Icon: Brain,
     image: "https://images.unsplash.com/photo-1631815588090-d1bcbe9a8537?auto=format&fit=crop&w=1200&q=80",
     tag: "Neuro Rehab",
+    iconBg: "gradient-violet",
+    scrim: "from-violet-900/75",
+    badge: "text-violet-700",
+    arrow: "text-violet-700",
   },
 ];
 
