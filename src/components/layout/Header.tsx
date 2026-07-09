@@ -500,26 +500,43 @@ function MegaPopover({
 
   if (theme.layout === "stack") {
     return wrap(
-      <div className="p-4 grid gap-2">
-        {items.map((m) => (
-          <Link
-            key={m.to}
-            to={m.to}
-            onClick={onClose}
-            className="group relative overflow-hidden flex items-center gap-4 rounded-2xl p-3.5 bg-gradient-to-r from-violet-50/60 to-white border border-violet-100 hover:border-violet-300 hover:shadow-soft transition"
-          >
-            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl gradient-violet text-white shadow-soft group-hover:scale-110 group-hover:rotate-3 transition">
-              <m.Icon className="h-5 w-5" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-[13.5px] font-bold text-foreground truncate">{m.label}</div>
-              <div className="text-[12px] text-muted-foreground line-clamp-1">{m.desc}</div>
-            </div>
-            <div className="text-violet-600 text-[11px] font-semibold opacity-0 group-hover:opacity-100 transition">Open →</div>
-          </Link>
-        ))}
+      <div className="p-4 grid grid-cols-[180px_1fr] gap-4">
+        {/* Doctor visual card */}
+        <div className="relative overflow-hidden rounded-2xl border border-violet-100 min-h-[220px]">
+          <SafeImg
+            src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80"
+            alt="Dr. Dushyant Singh"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-violet-900/90 via-violet-800/30 to-transparent" />
+          <div className="absolute inset-0 flex flex-col justify-end p-3 text-white">
+            <span className="inline-flex w-fit items-center gap-1 rounded-full bg-white/20 backdrop-blur border border-white/30 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest">Founder</span>
+            <div className="mt-1.5 text-[12.5px] font-bold leading-tight">Dr. Dushyant Singh</div>
+            <div className="text-[10px] text-white/85">BPT, MPT (Sports)</div>
+          </div>
+        </div>
+        {/* Stack of links */}
+        <div className="grid gap-2">
+          {items.map((m) => (
+            <Link
+              key={m.to}
+              to={m.to}
+              onClick={onClose}
+              className="group relative overflow-hidden flex items-center gap-3 rounded-xl p-2.5 bg-gradient-to-r from-violet-50/60 to-white border border-violet-100 hover:border-violet-300 hover:shadow-soft transition"
+            >
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg gradient-violet text-white shadow-soft group-hover:scale-110 group-hover:rotate-3 transition">
+                <m.Icon className="h-4 w-4" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-[13px] font-bold text-foreground truncate">{m.label}</div>
+                <div className="text-[11px] text-muted-foreground line-clamp-1">{m.desc}</div>
+              </div>
+              <div className="text-violet-600 text-[11px] font-semibold opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">→</div>
+            </Link>
+          ))}
+        </div>
       </div>,
-      "w-[540px]",
+      "w-[600px]",
     );
   }
 
