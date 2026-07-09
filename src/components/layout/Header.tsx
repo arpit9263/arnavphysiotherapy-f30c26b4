@@ -523,7 +523,7 @@ function MegaPopover({
     );
   }
 
-  // mosaic (gallery)
+  // mosaic (gallery / explore)
   return wrap(
     <div className="p-4 grid grid-cols-2 gap-2.5">
       {items.map((m, i) => (
@@ -532,21 +532,29 @@ function MegaPopover({
           to={m.to}
           onClick={onClose}
           className={cn(
-            "group relative overflow-hidden rounded-2xl p-4 border border-amber-100 hover:border-amber-300 transition min-h-[92px]",
-            i === 0 ? "col-span-2 bg-gradient-to-br from-amber-100 via-amber-50 to-white" : "bg-gradient-to-br from-amber-50/70 to-white",
+            "group relative overflow-hidden rounded-2xl border border-amber-100 hover:border-amber-300 transition min-h-[112px]",
+            i === 0 && "col-span-2 min-h-[140px]",
           )}
         >
-          <div className="flex items-start justify-between">
-            <div className="grid h-9 w-9 place-items-center rounded-xl gradient-amber text-white shadow-soft group-hover:scale-110 transition">
-              <m.Icon className="h-4 w-4" />
+          {m.img && (
+            <SafeImg src={m.img} alt="" className="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-amber-900/85 via-amber-800/40 to-transparent" />
+          <div className="relative h-full flex flex-col justify-between p-3.5 text-white">
+            <div className="flex items-start justify-between">
+              <div className="grid h-8 w-8 place-items-center rounded-lg bg-white/25 backdrop-blur border border-white/30">
+                <m.Icon className="h-3.5 w-3.5" />
+              </div>
+              <span className="text-[9px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur rounded-full px-2 py-0.5">{String(i + 1).padStart(2, "0")}</span>
             </div>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-amber-600">{String(i + 1).padStart(2, "0")}</span>
+            <div>
+              <div className="text-[14px] font-bold leading-tight">{m.label}</div>
+              <div className="text-[11px] text-white/85 line-clamp-1 mt-0.5">{m.desc}</div>
+            </div>
           </div>
-          <div className="mt-3 text-[14px] font-bold text-foreground">{m.label}</div>
-          <div className="text-[11.5px] text-muted-foreground line-clamp-2 mt-0.5">{m.desc}</div>
         </Link>
       ))}
     </div>,
-    "w-[560px]",
+    "w-[600px]",
   );
 }
