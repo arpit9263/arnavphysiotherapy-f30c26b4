@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Sparkles, Bone, Activity, Brain, Zap, Dumbbell, HeartPulse } from "lucide-react";
+import { ArrowUpRight, Bone, Activity, Brain, Zap, Dumbbell, HeartPulse } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { SectionHeader } from "@/components/ui-primitives/Section";
 
