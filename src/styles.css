@@ -163,7 +163,27 @@
     letter-spacing: -0.02em;
     font-weight: 700;
   }
+  /* Premium unified icon system — Lucide icons render with consistent
+     stroke width, rounded joins/caps and inherit currentColor for contrast. */
+  svg.lucide {
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
 }
+
+@utility text-accent-coral { color: var(--accent-coral); }
+@utility text-accent-violet { color: var(--accent-violet); }
+@utility text-accent-amber { color: var(--accent-amber); }
+@utility text-accent-sky { color: var(--accent-sky); }
+@utility text-accent-rose { color: var(--accent-rose); }
+@utility text-accent-emerald { color: var(--accent-emerald); }
+@utility bg-accent-coral { background-color: var(--accent-coral); }
+@utility bg-accent-violet { background-color: var(--accent-violet); }
+@utility bg-accent-amber { background-color: var(--accent-amber); }
+@utility bg-accent-sky { background-color: var(--accent-sky); }
+@utility bg-accent-rose { background-color: var(--accent-rose); }
+@utility bg-accent-emerald { background-color: var(--accent-emerald); }
 
 @utility glass-nav {
   background: color-mix(in oklab, white 72%, transparent);
