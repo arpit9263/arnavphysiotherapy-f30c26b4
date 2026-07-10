@@ -105,7 +105,7 @@ const areas: Area[] = [
     treatment: { name: "Neurological Physiotherapy", to: "/services/neurological-physiotherapy" },
   },
   {
-    id: "sports", label: "Sports Injury", x: 30, y: 68, Icon: Dumbbell,
+    id: "sports", label: "Sports Injury", x: 22, y: 82, Icon: Dumbbell,
     accent: {
       ring: "ring-amber-200", dot: "bg-amber-500", chipOn: "bg-amber-600 text-white",
       chipOff: "bg-white text-amber-700 border-amber-200", grad: "gradient-amber",
