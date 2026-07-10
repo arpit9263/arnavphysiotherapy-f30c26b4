@@ -205,47 +205,59 @@ export function BodyMapFinder() {
             {areas.map((a) => {
               const on = a.id === active;
               return (
-                <button
+                <motion.button
                   key={a.id}
-                  onClick={() => setActive(a.id)}
+                  onClick={() => selectArea(a.id)}
                   onMouseEnter={() => setActive(a.id)}
-                  aria-label={a.label}
-                  className="absolute -translate-x-1/2 -translate-y-1/2 group"
+                  onFocus={() => setActive(a.id)}
+                  aria-label={`Select ${a.label}`}
+                  aria-pressed={on}
+                  whileHover={{ scale: 1.15 }}
+                  whileTap={{ scale: 0.92 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 22 }}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary rounded-full"
                   style={{ left: `${a.x}%`, top: `${a.y}%` }}
                 >
-                  <span
-                    className={`block h-4 w-4 rounded-full transition-all duration-300 ${
-                      on
-                        ? `${a.accent.dot} ring-4 ${a.accent.ring} scale-125`
-                        : `bg-white ring-2 ${a.accent.ring} group-hover:scale-125`
-                    }`}
-                  />
-                  {on && (
-                    <motion.span
-                      layoutId="area-ping"
-                      className={`absolute inset-0 rounded-full ${a.accent.dot} opacity-40 animate-ping`}
+                  <span className="relative block h-5 w-5">
+                    {/* Pulse ring for active */}
+                    {on && (
+                      <motion.span
+                        layoutId="area-pulse"
+                        className={`absolute -inset-1 rounded-full ${a.accent.dot} opacity-30`}
+                        animate={{ scale: [1, 1.6, 1], opacity: [0.4, 0, 0.4] }}
+                        transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut" }}
+                      />
+                    )}
+                    <span
+                      className={`relative block h-5 w-5 rounded-full transition-colors duration-300 shadow-md ${
+                        on
+                          ? `${a.accent.dot} ring-4 ${a.accent.ring}`
+                          : `bg-white ring-2 ${a.accent.ring}`
+                      }`}
                     />
-                  )}
-                  <span
-                    className={`absolute left-1/2 -translate-x-1/2 mt-2 inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider border transition ${
-                      on ? `${a.accent.chipOn} border-transparent shadow` : a.accent.chipOff
+                  </span>
+                  <motion.span
+                    animate={{ y: on ? 0 : 2, opacity: 1 }}
+                    className={`absolute left-1/2 -translate-x-1/2 mt-2 inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider border shadow-sm transition-colors ${
+                      on ? `${a.accent.chipOn} border-transparent` : a.accent.chipOff
                     }`}
                   >
-                    <a.Icon className="h-2.5 w-2.5" />
+                    <a.Icon className="h-3 w-3" strokeWidth={2.25} />
                     {a.label}
-                  </span>
-                </button>
+                  </motion.span>
+                </motion.button>
               );
             })}
 
             {/* Legend */}
-            <div className="absolute bottom-3 left-3 right-3 flex flex-wrap justify-center gap-1.5 text-[9px] font-semibold text-muted-foreground">
+            <div className="absolute bottom-3 left-3 right-3 flex flex-wrap justify-center gap-1.5 text-[10px] font-semibold text-muted-foreground">
               {areas.map((a) => (
                 <button
                   key={`legend-${a.id}`}
-                  onClick={() => setActive(a.id)}
-                  className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 transition ${
-                    a.id === active ? `${a.accent.chipOn} border-transparent` : "bg-white/80 border-border/70 hover:bg-white"
+                  onClick={() => selectArea(a.id)}
+                  aria-label={`Jump to ${a.label} care`}
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 transition-all hover:scale-105 ${
+                    a.id === active ? `${a.accent.chipOn} border-transparent shadow` : "bg-white/90 border-border/70 hover:bg-white"
                   }`}
                 >
                   <span className={`h-1.5 w-1.5 rounded-full ${a.accent.dot}`} />
@@ -254,6 +266,7 @@ export function BodyMapFinder() {
               ))}
             </div>
           </div>
+
 
           {/* Details panel */}
           <AnimatePresence mode="wait">
