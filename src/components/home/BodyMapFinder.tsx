@@ -269,6 +269,7 @@ export function BodyMapFinder() {
 
 
           {/* Details panel */}
+          <div ref={detailsRef} className="scroll-mt-24">
           <AnimatePresence mode="wait">
             <motion.div
               key={current.id}
