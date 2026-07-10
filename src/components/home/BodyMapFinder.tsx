@@ -325,6 +325,7 @@ export function BodyMapFinder() {
               </div>
             </motion.div>
           </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>
