@@ -76,7 +76,7 @@ const areas: Area[] = [
     treatment: { name: "Exercise Therapy", to: "/services/exercise-therapy" },
   },
   {
-    id: "knee", label: "Knee", x: 44, y: 68, Icon: HeartPulse,
+    id: "knee", label: "Knee", x: 58, y: 82, Icon: HeartPulse,
     accent: {
       ring: "ring-rose-200", dot: "bg-rose-500", chipOn: "bg-rose-600 text-white",
       chipOff: "bg-white text-rose-700 border-rose-200", grad: "gradient-rose",
