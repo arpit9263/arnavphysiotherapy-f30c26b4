@@ -144,14 +144,7 @@ export function BodyMapFinder() {
           subtitle="Tap the area of your body that's bothering you — we'll show you the conditions we treat there and the recommended physiotherapy programme."
         />
 
-  return (
-    <section className="py-20 md:py-28 bg-gradient-to-b from-slate-50 via-white to-white">
-      <div className="container-page">
-        <SectionHeader
-          eyebrow="Where Does It Hurt?"
-          title="Find the Right Care in One Tap"
-          subtitle="Tap the area of your body that's bothering you — we'll show you the conditions we treat there and the recommended physiotherapy programme."
-        />
+
 
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_1.1fr] gap-8 lg:gap-12 items-center">
           {/* Interactive silhouette */}
