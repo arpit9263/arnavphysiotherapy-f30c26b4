@@ -49,7 +49,7 @@ const cards = [
     desc: "Post-stroke, Parkinson's and neuro-recovery programmes with measurable outcomes.",
     to: "/services/neurological-physiotherapy",
     Icon: Brain,
-    image: "https://images.unsplash.com/photo-1631815588090-d1bcbe9a8537?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=1200&q=80",
     tag: "Neuro Rehab",
     iconBg: "gradient-violet",
     scrim: "from-violet-900/75",
