@@ -45,6 +45,12 @@
   --color-brand-mint: var(--brand-mint);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
+  --color-accent-coral: var(--accent-coral);
+  --color-accent-violet: var(--accent-violet);
+  --color-accent-amber: var(--accent-amber);
+  --color-accent-sky: var(--accent-sky);
+  --color-accent-rose: var(--accent-rose);
+  --color-accent-emerald: var(--accent-emerald);
 
   --shadow-soft: 0 8px 30px -12px color-mix(in oklab, var(--primary) 20%, transparent);
   --shadow-glow: 0 20px 60px -20px color-mix(in oklab, var(--primary) 35%, transparent);
