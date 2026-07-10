@@ -45,6 +45,12 @@
   --color-brand-mint: var(--brand-mint);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
+  --color-accent-coral: var(--accent-coral);
+  --color-accent-violet: var(--accent-violet);
+  --color-accent-amber: var(--accent-amber);
+  --color-accent-sky: var(--accent-sky);
+  --color-accent-rose: var(--accent-rose);
+  --color-accent-emerald: var(--accent-emerald);
 
   --shadow-soft: 0 8px 30px -12px color-mix(in oklab, var(--primary) 20%, transparent);
   --shadow-glow: 0 20px 60px -20px color-mix(in oklab, var(--primary) 35%, transparent);
@@ -105,6 +111,14 @@
   --sidebar-accent-foreground: oklch(0.35 0.06 180);
   --sidebar-border: oklch(0.92 0.007 240);
   --sidebar-ring: oklch(0.72 0.13 190);
+
+  /* Accent palette — used for badges, headings, CTAs across the site */
+  --accent-coral: oklch(0.72 0.17 40);      /* #F97316 */
+  --accent-violet: oklch(0.62 0.2 295);     /* #8B5CF6 */
+  --accent-amber: oklch(0.79 0.16 75);      /* #F59E0B */
+  --accent-sky: oklch(0.72 0.14 235);       /* #0EA5E9 */
+  --accent-rose: oklch(0.68 0.2 15);        /* #F43F5E */
+  --accent-emerald: oklch(0.72 0.14 165);   /* #10B981 */
 }
 
 .dark {
@@ -149,7 +163,27 @@
     letter-spacing: -0.02em;
     font-weight: 700;
   }
+  /* Premium unified icon system — Lucide icons render with consistent
+     stroke width, rounded joins/caps and inherit currentColor for contrast. */
+  svg.lucide {
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
 }
+
+@utility text-accent-coral { color: var(--accent-coral); }
+@utility text-accent-violet { color: var(--accent-violet); }
+@utility text-accent-amber { color: var(--accent-amber); }
+@utility text-accent-sky { color: var(--accent-sky); }
+@utility text-accent-rose { color: var(--accent-rose); }
+@utility text-accent-emerald { color: var(--accent-emerald); }
+@utility bg-accent-coral { background-color: var(--accent-coral); }
+@utility bg-accent-violet { background-color: var(--accent-violet); }
+@utility bg-accent-amber { background-color: var(--accent-amber); }
+@utility bg-accent-sky { background-color: var(--accent-sky); }
+@utility bg-accent-rose { background-color: var(--accent-rose); }
+@utility bg-accent-emerald { background-color: var(--accent-emerald); }
 
 @utility glass-nav {
   background: color-mix(in oklab, white 72%, transparent);

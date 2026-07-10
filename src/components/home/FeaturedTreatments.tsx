@@ -79,10 +79,10 @@ export function FeaturedTreatments() {
             >
               <Link
                 to={c.to}
-                className="group relative flex flex-col h-full overflow-hidden rounded-3xl bg-white border border-border/70 shadow-card hover:shadow-glow hover:-translate-y-1.5 transition-all duration-500"
+                className="group relative flex flex-col h-full rounded-3xl bg-white border border-border/70 shadow-card hover:shadow-glow hover:-translate-y-1.5 transition-all duration-500"
               >
                 {/* Image */}
-                <div className="relative h-44 overflow-hidden">
+                <div className="relative h-44 overflow-hidden rounded-t-3xl">
                   <img
                     src={c.image}
                     alt={c.title}
@@ -91,16 +91,21 @@ export function FeaturedTreatments() {
                     onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg"; }}
                   />
                   <div className={`absolute inset-0 bg-gradient-to-t ${c.scrim} via-transparent to-transparent`} />
-                  <span className={`absolute top-3 left-3 inline-flex items-center gap-1 rounded-full bg-white/95 backdrop-blur px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest ${c.badge} border border-white`}>
+                  <span className={`absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest ${c.badge} border border-white shadow-sm`}>
                     {c.eyebrow}
                   </span>
-                  <div className={`absolute -bottom-5 left-4 grid h-11 w-11 place-items-center rounded-2xl ${c.iconBg} text-white shadow-lg ring-4 ring-white group-hover:scale-110 group-hover:-rotate-6 transition-transform`}>
-                    <c.Icon className="h-5 w-5" />
-                  </div>
+                </div>
+
+                {/* Icon badge — sits on the seam, not clipped */}
+                <div
+                  className={`absolute left-5 top-[10.5rem] z-10 grid h-12 w-12 place-items-center rounded-2xl ${c.iconBg} text-white shadow-lg ring-4 ring-white group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300`}
+                  aria-hidden
+                >
+                  <c.Icon className="h-[22px] w-[22px]" strokeWidth={2} />
                 </div>
 
                 {/* Body */}
-                <div className="flex flex-col flex-1 p-5 pt-8">
+                <div className="flex flex-col flex-1 p-5 pt-9">
                   <h3 className="text-[17px] font-bold text-foreground leading-snug">{c.title}</h3>
                   <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed flex-1">{c.desc}</p>
                   <div className="mt-4 flex items-center justify-between border-t border-border/60 pt-3">
