@@ -122,6 +122,27 @@ const areas: Area[] = [
 export function BodyMapFinder() {
   const [active, setActive] = useState<string>(areas[2].id);
   const current = areas.find((a) => a.id === active)!;
+  const detailsRef = useRef<HTMLDivElement | null>(null);
+
+  const selectArea = (id: string) => {
+    setActive(id);
+    // On small screens, smoothly scroll the details panel into view so the
+    // user immediately sees the matched conditions & treatment.
+    if (typeof window !== "undefined" && window.matchMedia("(max-width: 1023px)").matches) {
+      requestAnimationFrame(() => {
+        detailsRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    }
+  };
+
+  return (
+    <section className="py-20 md:py-28 bg-gradient-to-b from-slate-50 via-white to-white">
+      <div className="container-page">
+        <SectionHeader
+          eyebrow="Where Does It Hurt?"
+          title="Find the Right Care in One Tap"
+          subtitle="Tap the area of your body that's bothering you — we'll show you the conditions we treat there and the recommended physiotherapy programme."
+        />
 
   return (
     <section className="py-20 md:py-28 bg-gradient-to-b from-slate-50 via-white to-white">
