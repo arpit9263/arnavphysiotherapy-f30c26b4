@@ -10,11 +10,7 @@ export function Section({ id, className = "", children }: { id?: string; classNa
 }
 
 export function Eyebrow({ children }: { children: ReactNode }) {
-  return (
-    <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.22em] text-primary">
-      {children}
-    </span>
-  );
+  return <span className="eyebrow-rule">{children}</span>;
 }
 
 export function SectionHeader({
@@ -30,20 +26,25 @@ export function SectionHeader({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, ease: [0.2, 0.7, 0.2, 1] }}
+      transition={{ duration: 0.7, ease: [0.2, 0.7, 0.2, 1] }}
       className={`mb-12 md:mb-16 ${align === "center" ? "text-center mx-auto max-w-2xl" : "max-w-2xl"}`}
     >
       {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-      <h2 className="mt-3 text-3xl md:text-5xl font-bold tracking-tight text-foreground">
+      <h2 className="mt-4 display-lg text-foreground">
         {title}
       </h2>
-      {subtitle && <p className="mt-4 text-[15px] md:text-lg text-muted-foreground">{subtitle}</p>}
+      {subtitle && (
+        <p className="mt-4 text-[15px] md:text-base text-muted-foreground leading-relaxed max-w-xl mx-auto">
+          {subtitle}
+        </p>
+      )}
     </motion.div>
   );
 }
+
 
 export function FadeUp({
   children,

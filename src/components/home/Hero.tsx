@@ -111,7 +111,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="mt-6 text-[40px] sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.05] text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.35)]"
+            className="mt-6 display-xl text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.35)]"
           >
             Expert Physiotherapy
             <br className="hidden sm:block" /> for{" "}
@@ -135,11 +135,12 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="mt-6 text-base md:text-lg text-white/85 max-w-2xl mx-auto"
+            className="mt-6 text-[15px] md:text-base text-white/85 max-w-xl mx-auto leading-relaxed"
           >
             Personalised, evidence-based physiotherapy and rehabilitation in Jhansi — helping you recover
             faster, move freely and get back to what you love.
           </motion.p>
+
 
           {/* Smart Hero Search — routes to matching service or condition */}
           <motion.form

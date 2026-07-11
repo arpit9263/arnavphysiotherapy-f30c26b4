@@ -60,57 +60,57 @@ const cards = [
 
 export function FeaturedTreatments() {
   return (
-    <section className="pt-20 md:pt-28 pb-8">
+    <section className="section-y">
       <div className="container-page">
         <SectionHeader
           eyebrow="What We Do"
-          title="Care Built Around Your Recovery"
+          title="Care built around your recovery"
           subtitle="Four core programmes that cover almost every patient at Arnav Physiotherapy — each led by a specialist, backed by evidence."
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
           {cards.map((c, i) => (
             <motion.div
               key={c.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.55, delay: i * 0.08 }}
+              transition={{ duration: 0.6, delay: i * 0.08, ease: [0.2, 0.7, 0.2, 1] }}
             >
               <Link
                 to={c.to}
-                className="group relative flex flex-col h-full rounded-3xl bg-white border border-border/70 shadow-card hover:shadow-glow hover:-translate-y-1.5 transition-all duration-500"
+                className="group relative flex flex-col h-full rounded-3xl bg-white border border-border/60 ring-card hover:-translate-y-1.5 hover:shadow-glow transition-all duration-500"
               >
                 {/* Image */}
-                <div className="relative h-44 overflow-hidden rounded-t-3xl">
+                <div className="relative h-40 overflow-hidden rounded-t-3xl">
                   <img
                     src={c.image}
                     alt={c.title}
                     loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-[900ms] ease-[cubic-bezier(0.2,0.7,0.2,1)]"
                     onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg"; }}
                   />
-                  <div className={`absolute inset-0 bg-gradient-to-t ${c.scrim} via-transparent to-transparent`} />
-                  <span className={`absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest ${c.badge} border border-white shadow-sm`}>
+                  <div className={`absolute inset-0 bg-gradient-to-t ${c.scrim} via-transparent to-transparent opacity-90`} />
+                  <span className={`absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] ${c.badge} border border-white shadow-sm`}>
                     {c.eyebrow}
                   </span>
                 </div>
 
-                {/* Icon badge — sits on the seam, not clipped */}
+                {/* Icon badge — sits on the seam */}
                 <div
-                  className={`absolute left-5 top-[10.5rem] z-10 grid h-12 w-12 place-items-center rounded-2xl ${c.iconBg} text-white shadow-lg ring-4 ring-white group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300`}
+                  className={`absolute left-5 top-[9.75rem] z-10 grid h-11 w-11 place-items-center rounded-2xl ${c.iconBg} text-white shadow-lg ring-4 ring-white group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300`}
                   aria-hidden
                 >
-                  <c.Icon className="h-[22px] w-[22px]" strokeWidth={2} />
+                  <c.Icon className="h-5 w-5" strokeWidth={2} />
                 </div>
 
                 {/* Body */}
-                <div className="flex flex-col flex-1 p-5 pt-9">
-                  <h3 className="text-[17px] font-bold text-foreground leading-snug">{c.title}</h3>
+                <div className="flex flex-col flex-1 p-5 pt-8">
+                  <h3 className="text-[15.5px] font-bold text-foreground leading-snug tracking-tight">{c.title}</h3>
                   <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed flex-1">{c.desc}</p>
                   <div className="mt-4 flex items-center justify-between border-t border-border/60 pt-3">
-                    <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">{c.tag}</span>
-                    <span className={`inline-flex items-center gap-1 text-[12px] font-semibold ${c.arrow} group-hover:gap-2 transition-all`}>
+                    <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.18em]">{c.tag}</span>
+                    <span className={`inline-flex items-center gap-1 text-[12px] font-semibold ${c.arrow} group-hover:gap-2.5 transition-all`}>
                       Learn more <ArrowUpRight className="h-3.5 w-3.5" />
                     </span>
                   </div>
@@ -123,3 +123,4 @@ export function FeaturedTreatments() {
     </section>
   );
 }
+
