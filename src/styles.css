@@ -151,18 +151,26 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    /* Fluid base type — smaller on mobile, elegant on desktop */
+    font-size: clamp(15px, 0.9rem + 0.15vw, 16.5px);
   }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
+    line-height: 1.6;
   }
   h1, h2, h3, h4, h5 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
     font-weight: 700;
+    line-height: 1.1;
   }
+  h1 { font-weight: 800; letter-spacing: -0.035em; }
+  p { text-wrap: pretty; }
+  h1, h2, h3 { text-wrap: balance; }
+  ::selection { background: color-mix(in oklab, var(--primary) 25%, transparent); color: var(--foreground); }
   /* Premium unified icon system — Lucide icons render with consistent
      stroke width, rounded joins/caps and inherit currentColor for contrast. */
   svg.lucide {
